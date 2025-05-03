@@ -2,8 +2,6 @@
 
 # Project Overview
 
-# Latar Belakang  
-
 Era digital ditandai dengan **information overload** yang membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi untuk memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital.[^1]  
 
 Kemampuan untuk menyaring informasi dan menyajikan konten yang paling relevan bagi pengguna tidak hanya meningkatkan kepuasan pengguna tetapi juga menjadi faktor kunci dalam kesuksesan bisnis digital.
@@ -48,11 +46,143 @@ Untuk mengatasi hal tersebut dapat digunakan sistem hyrbid yang menggabungkan **
 
 # Busines Understanding
 
-## Problem Statements
+## Problem Statement
+Tantangan utama yang diidentifikasi dalam industri film dan sistem rekomendasi:
+
+1. **Overload Informasi dan Relevansi Konten**
+   - Banjir informasi digital menyulitkan pengguna menemukan konten film yang relevan
+   - Sistem konvensional sering gagal menampilkan konten berkualitas yang kurang populer
+
+2. **Distribusi dan Aksesibilitas Film Tidak Merata**
+   - Dominasi film asing dan distribusi bioskop tidak seimbang membatasi jangkauan film lokal/nasional
+   - Minimnya layar bioskop di daerah non-urban memperparah masalah ini
+
+3. **Masalah Cold Start**
+   - Pengguna baru: Sistem tidak bisa memberikan rekomendasi personal karena kurangnya data interaksi
+   - Film baru: Minim eksposur karena algoritma lebih memprioritaskan konten populer
+
+4. **Persaingan dengan Platform Digital Global**
+   - Platform streaming (Netflix, Viu) mendominasi dengan konten global, menyisihkan film lokal
+
+5. **Pengalaman Pengguna (UX) yang Buruk**
+   - Rekomendasi tidak akurat/tidak personal menurunkan kepuasan dan meningkatkan churn rate
 
 ## Goals
+Target proyek untuk menjawab permasalahan di atas:
+
+1. **Membangun Sistem Rekomendasi Hybrid**
+   - Menggabungkan collaborative + content-based filtering untuk meningkatkan akurasi, khususnya bagi pengguna/film baru
+
+2. **Meningkatkan Aksesibilitas Konten Lokal/Nasional**
+   - Mengoptimalkan rekomendasi film lokal menggunakan metadata (genre, sutradara, bahasa)
+
+3. **Mempersonalisasi Pengalaman Pengguna**
+   - Menganalisis preferensi pengguna (riwayat tonton, rating) untuk mengurangi overload informasi
+
+4. **Strategi Distribusi Digital-Konvensional**
+   - Mengintegrasikan data bioskop dan streaming untuk rekomendasi multi-saluran
+
+5. **Mengurangi Tingkat Churn Platform**
+   - Meningkatkan retensi pengguna dengan rekomendasi onboarding yang lebih relevan
+
+## Penyelarasan Masalah-Tujuan
+
+| Pernyataan Masalah               | Tujuan                                 |
+|----------------------------------|----------------------------------------|
+| Overload informasi              | Sistem rekomendasi hybrid              |
+| Distribusi tidak merata          | Fokus pada konten lokal/nasional       |
+| Masalah cold start               | Gabungkan metadata + interaksi pengguna|
+| Persaingan platform digital      | Rekomendasi multi-saluran              |
+| UX buruk                         | Personalisasi berbasis preferensi      |
 
 ## Solution Statements
+
+### 1. Hybrid Mixed (Kombinasi Beberapa Strategi)
+
+Solusi hybrid dikembangkan untuk mengatasi tantangan spesifik dalam sistem rekomendasi film dengan memanfaatkan keunggulan dua pendekatan utama: Collaborative Filtering dan Content-Based Filtering. Pendekatan ini dirancang khusus untuk dataset yang mencakup:
+
+- **Data pengguna**: rating, timestamp, usia, gender, pekerjaan
+- **Data film**: judul, tahun rilis, 19 genre berbeda
+- **Interaksi**: riwayat rating pengguna
+
+### Alur Kerja Algoritma
+
+```mermaid
+flowchart TD
+    A[Data Input] --> B[Preprocessing Data]
+    B --> C[Content-Based Filtering]
+    B --> D[Collaborative Filtering]
+    C --> E[Ekstraksi Fitur Film]
+    E --> F[Similarity Konten]
+    D --> G[Matrix Factorization]
+    F --> H[Kombinasi Hybrid]
+    G --> H
+    H --> I[Ranking Rekomendasi]
+    I --> J[Output Rekomendasi]
+```
+**PENJELASAN**
+1. **Data Preprocessing**
+**Data Cleaning**
+  - Penanganan missing values
+  - Normalisasi skala rating (1-5)
+
+2. **Feature Engineering**
+| Feature Type       | Processing Method         | Details                     |
+|--------------------|---------------------------|----------------------------|
+| Multi-label genre  | Multi-hot encoding        | 19 kategori genre          |
+| Occupation         | One-hot encoding          | -                          |
+| Age/Gender         | Standard scaling          | -                          |
+
+3. Model Architecture
+
+- **Content-Based Filtering**
+```python
+{
+  "Features": ["genre", "release_year", "title"],
+  "Weights": [0.7, 0.2, 0.1],
+  "Similarity": "Cosine similarity",
+  "Vectorizer": "TF-IDF"
+}
+```
+
+- **Collaborative Filtering**
+
+```python
+{
+  "Algorithm": "ALS Matrix Factorization",
+  "Latent Factors": 50,
+  "Optimization": "Alternating Least Squares",
+  "Hyperparameters": {
+    "iterations": 15,
+    "regularization": 0.1
+  }
+}
+```
+
+- ** Hybrid Combination**
+
+final_score=0.6×CF_score+0.4×CB_score
+
+⚡ Performance Advantages
+Keunggulan	Penjelasan
+Cold Start Handling	✔ New users: demographic-based
+✔ New items: content similarity
+Multidimensional Personalization	✔ Gabungan preferensi implisit & eksplisit
+Feature Optimization	✔ Pemanfaatan 19 genre categories
+✔ Pengolahan data demografi
+⚠️ Limitations
+diff
+- Computational Complexity:
+  * Butuh penyimpanan embedding matrix
+  * Pelatihan dua model terpisah
+
+- Weight Tuning:
+  ! Rasio 60:40 perlu validasi empiris
+  ! Sensitif terhadap distribusi data
+
+- Metadata Dependency:
+  # Kinerja turun jika metadata tidak lengkap
+
 
 # Data Understanding
 
