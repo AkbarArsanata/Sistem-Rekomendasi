@@ -4,49 +4,51 @@
 
 # Latar Belakang  
 
-Era digital ditandai dengan information overload membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital.[Master Tesis] Kemampuan untuk menyaring informasi dan menyajikan konten yang paling relevan bagi pengguna tidak hanya meningkatkan kepuasan pengguna tetapi juga menjadi faktor kunci dalam kesuksesan bisnis digital.kualitas dan relevansi konten merupakan faktor kunci dalam membangun citra dan reputasi institusi. Konten yang relevan dan berkualitas mampu meningkatkan pengalaman audiens, membangun kredibilitas, serta memperkuat komunikasi institusi. Strategi penentuan relevansi meliputi analisis mendalam terhadap audiens, penelitian pasar, dan penyampaian pesan yang sesuai kebutuhan serta preferensi pengguna. Konten penting yang kurang populer pun tetap harus disajikan secara menarik agar berdampak positif bagi audiens dan institusi.[14794] tak hanya itu Pengalaman pengguna yang optimal berperan penting dalam membentuk citra positif layanan elektronik, menciptakan loyalitas, meningkatkan kepuasan, dan kepercayaan pengguna. Faktor seperti desain antarmuka, responsivitas, kecepatan, dan personalisasi sangat memengaruhi persepsi pengguna terhadap kualitas layanan. Pengalaman buruk dapat menyebabkan frustrasi dan pengguna berpindah ke platform lain.[225027205]
+Era digital ditandai dengan **information overload** yang membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi untuk memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital.[^1]  
 
-Industri film, khususnya, menghadapi tantangan besar dalam menghadirkan konten yang sesuai dengan preferensi beragam pengguna.perilaku konsumsi media membawa banyak tantangan bagi industri film, terutama dalam aspek distribusi dan eksibisi. Tantangan utamanya meliputi:
+Kemampuan untuk menyaring informasi dan menyajikan konten yang paling relevan bagi pengguna tidak hanya meningkatkan kepuasan pengguna tetapi juga menjadi faktor kunci dalam kesuksesan bisnis digital.
+Berikut pengaruh **Kualitas dan Relevansi Konten**:  
+  - Faktor kunci dalam membangun citra dan reputasi institusi.  
+  - Meningkatkan pengalaman audiens, membangun kredibilitas, serta memperkuat komunikasi.  
+  - Strategi penentuan relevansi meliputi:  
+    - Analisis audiens dan penelitian pasar.  
+    - Penyampaian pesan sesuai kebutuhan dan preferensi pengguna.  
+  - Konten penting yang kurang populer harus disajikan secara menarik untuk dampak positif.[^2]
 
-Jumlah bioskop dan layar yang masih terpusat di kota besar dan belum ideal.
+Tak hanya itu **Pengalaman Pengguna** juga berperan sangat penting seperti: 
+  - Berperan penting dalam membentuk citra positif layanan elektronik.  
+  - Menciptakan loyalitas, meningkatkan kepuasan, dan kepercayaan pengguna. 
+  - Faktor yang memengaruhi:  
+    - Desain antarmuka, responsivitas, kecepatan, dan personalisasi.  
+  - Pengalaman buruk dapat menyebabkan frustrasi dan migrasi pengguna ke platform lain.[^3]  
 
-- Dominasi film asing (terutama Hollywood) di bioskop dan tahapan produksi.
+Tidak berbeda jauh dengan industri film. Industri film juga menghadapi tantangan besar dalam menghadirkan konten yang sesuai dengan preferensi beragam pengguna. Perilaku konsumsi media menimbulkan tantangan utama dalam distribusi dan eksibisi, seperti:
 
-- Persaingan yang semakin ketat akibat banyaknya platform digital seperti Netflix dan Viu yang agresif mendistribusikan film secara global.
+1. **Distribusi Tidak Merata**:  
+   - Bioskop dan layar terpusat di kota besar.  
+   - Dominasi film asing (terutama Hollywood) di bioskop dan produksi.  
 
-- Banyak film nasional yang sulit mendapatkan penonton meski mendapat slot layar besar.
+2. **Persaingan Ketat**:  
+   - Maraknya platform digital (Netflix, Viu) yang agresif mendistribusikan film secara global.  
+   - Film nasional sulit mendapatkan penonton meski mendapat slot layar besar.  
 
-- Kebutuhan untuk menyeimbangkan distribusi konvensional (bioskop) dan digital agar film dapat menjangkau lebih banyak penonton dengan preferensi beragam.
+3. **Kebutuhan Adaptasi**:  
+   - Penyeimbangan distribusi konvensional (bioskop) dan digital.  
+   - Strategi distribusi adaptif dan dukungan kebijakan pemerintah (misalnya insentif pajak untuk film kurang diminati).
+  
+**Tantangan terbesar**: Bukan hanya ketersediaan layar, tetapi bagaimana menghadirkan konten relevan yang mudah diakses oleh audiens beragam, baik melalui bioskop maupun platform digital.[^4]  
 
-- Pentingnya strategi distribusi yang adaptif serta dukungan kebijakan pemerintah, seperti insentif pajak untuk film dengan penonton sedikit.
+Selain itu Cold start menjadi tantangan utama dalam industri film dengan dampak:  
 
-Studi ini menegaskan bahwa tantangan terbesar bukan hanya soal ketersediaan layar, tetapi bagaimana menghadirkan konten yang relevan dan mudah diakses oleh audiens yang semakin beragam, baik melalui bioskop maupun platform digital. Industri film harus mampu beradaptasi dengan perubahan perilaku konsumsi dan memanfaatkan peluang distribusi digital untuk tetap kompetitif dan relevan di pasar global.[jurnaladm]
+- **Pengguna Baru**:  
+  - Rekomendasi tidak personal, mengurangi retensi pengguna.  
+- **Film Baru**:  
+  - Minim eksposur, kurang kompetitif di pasar.  
+- **Platform Streaming**:  
+  - Risiko kehilangan pelanggan jika rekomendasi awal tidak menarik.[^5]
+ 
+Untuk mengatasi hal tersebut dapat digunakan sistem hyrbid yang menggabungkan **Collaborative Filtering** (berbasis interaksi pengguna) dan **Content-Based Filtering** (berbasis metadata film seperti genre, sutradara, atau aktor).  Metode ini mampu memberikan rekomendasi awal untuk pengguna atau film baru dengan memanfaatkan kesamaan konten.[^6]  
 
-Tak hanya itu, cold start juga menjadi tantangan utama dalam industri film. Dampak pada Industri Film
-
-- Pengguna Baru: Pengalaman pengguna kurang optimal karena rekomendasi tidak personal, berpotensi mengurangi retensi pengguna.
-
-- Film Baru: Minim eksposur menyebabkan film kurang kompetitif di pasar, terutama jika bersaing dengan film populer yang sudah memiliki basis penggemar.
-
-- Platform Streaming: Risiko kehilangan pelanggan jika rekomendasi awal tidak menarik.[17650056]
-
-
-Menggabungkan collaborative filtering (berbasis interaksi pengguna) dengan content-based filtering (berbasis metadata film seperti genre, sutradara, atau aktor). Metode ini mampu memberikan rekomendasi awal untuk pengguna atau film baru dengan memanfaatkan kesamaan konten.[article text]
-
-Dengan ribuan judul film yang tersedia, pengguna sering kali mengalami kebingungan dalam memilih tontonan yang sesuai dengan selera mereka. Di sisi lain, penyedia layanan membutuhkan cara efektif untuk mempertahankan engagement pengguna dan meningkatkan retensi. Sistem rekomendasi yang cerdas menjadi solusi krusial untuk menjembatani kebutuhan ini.  
-
-Perkembangan sistem rekomendasi telah berevolusi dari pendekatan sederhana berbasis popularitas hingga teknik canggih seperti:  
-- **Collaborative filtering**  
-- **Content-based filtering**  
-- **Pendekatan hibrid** (gabungan keduanya).  
-
-Pendekatan ini tidak hanya mempertimbangkan riwayat interaksi pengguna tetapi juga memanfaatkan informasi demografis dan kontekstual untuk memberikan rekomendasi yang lebih personal dan akurat.  
-
-## Mengapa Masalah Ini Perlu Diselesaikan?  
-
-1. **Overload Informasi** – Pengguna sering kali kewalahan dengan banyaknya pilihan konten yang tersedia. Sistem rekomendasi yang baik dapat mengurangi kebingungan ini dengan menyajikan opsi yang lebih terpersonalisasi.  
-2. **Meningkatkan User Engagement** – Rekomendasi yang relevan mendorong pengguna untuk lebih sering berinteraksi dengan platform, yang pada akhirnya meningkatkan loyalitas dan nilai bisnis.  
-3. **Mengatasi Cold Start Problem** – Pengguna baru atau konten baru sering kali kurang terwakili dalam data. Sistem yang mampu memanfaatkan informasi tambahan seperti demografi atau metadata konten dapat memberikan rekomendasi yang lebih baik bahkan dengan data terbatas.  
 
 # Busines Understanding
 
@@ -143,3 +145,12 @@ Catatan:
 
 Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor Dillinger, Github Guides: Mastering markdown, atau sumber lain di internet. Semangat!
 Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+
+Reference
+
+[^1] MESIN REKOMENDASI FILM MENGGUNAKAN METODE KEMIRIPAN GENRE BERBASIS COLLABORATIVE FILTERING. (n.d.).
+[^2] Zaman, S., Teknik, D., Uin, I., Malik, M., & Malang, I. (n.d.). Rencana Strategis Komunikasi Institusi: Membangun Kualitas dan Relevansi Konten untuk Masa Depan Ringkasan Eksekutif A. Pendahuluan.
+[^3] 225027205_Bab 2. (n.d.).
+[^4] Iswahyuningtyas, C. E., & Hidayat, M. F. (2021). Strategies and Challenges in Conventional and Digital Film Distribution and Exhibition in Indonesia. Jurnal Komunikasi, 13(1), 133. https://doi.org/10.24912/jk.v13i1.10033
+[^5] 17650056. (n.d.).
+[^6] Velamentosa, D., Zuliarso, E., & Raya Tri Lomba Juang, J. (2025). SISTEM REKOMENDASI FILM MENGGUNAKAN METODE CONTENT-BASED FILTERING. In Jurnal Mahasiswa Teknik Informatika) (Vol. 9, Issue 2).
