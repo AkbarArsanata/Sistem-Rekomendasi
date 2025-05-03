@@ -10,19 +10,15 @@ Kemampuan untuk menyaring informasi dan menyajikan konten yang paling relevan ba
 Berikut pengaruh **Kualitas dan Relevansi Konten**:  
   - Faktor kunci dalam membangun citra dan reputasi institusi.  
   - Meningkatkan pengalaman audiens, membangun kredibilitas, serta memperkuat komunikasi.  
-  - Strategi penentuan relevansi meliputi:  
-    - Analisis audiens dan penelitian pasar.  
-    - Penyampaian pesan sesuai kebutuhan dan preferensi pengguna.  
+  - Strategi penentuan relevansi yang meliputi Analisis audiens dan penelitian pasar dan Penyampaian pesan sesuai kebutuhan dan preferensi pengguna  
   - Konten penting yang kurang populer harus disajikan secara menarik untuk dampak positif.[^2]
 
 Tak hanya itu **Pengalaman Pengguna** juga berperan sangat penting seperti: 
   - Berperan penting dalam membentuk citra positif layanan elektronik.  
   - Menciptakan loyalitas, meningkatkan kepuasan, dan kepercayaan pengguna. 
-  - Faktor yang memengaruhi:  
-    - Desain antarmuka, responsivitas, kecepatan, dan personalisasi.  
   - Pengalaman buruk dapat menyebabkan frustrasi dan migrasi pengguna ke platform lain.[^3]  
 
-Tidak berbeda jauh dengan industri film. Industri film juga menghadapi tantangan besar dalam menghadirkan konten yang sesuai dengan preferensi beragam pengguna. Perilaku konsumsi media menimbulkan tantangan utama dalam distribusi dan eksibisi, seperti:
+Tidak berbeda jauh, industri film juga menghadapi tantangan besar dalam menghadirkan konten yang sesuai dengan preferensi beragam pengguna. Perilaku konsumsi media menimbulkan tantangan utama dalam distribusi dan eksibisi, seperti:
 
 1. **Distribusi Tidak Merata**:  
    - Bioskop dan layar terpusat di kota besar.  
