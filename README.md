@@ -120,49 +120,6 @@ flowchart TD
     H --> I[Ranking Rekomendasi]
     I --> J[Output Rekomendasi]
 ```
-**PENJELASAN**
-1. **Data Preprocessing**
-**Data Cleaning**
-  - Penanganan missing values
-  - Normalisasi skala rating (1-5)
-
-2. **Feature Engineering**
-
-| Feature Type       | Processing Method         | Details                     |
-|--------------------|---------------------------|----------------------------|
-| Multi-label genre  | Multi-hot encoding        | 19 kategori genre          |
-| Occupation         | One-hot encoding          | -                          |
-| Age/Gender         | Standard scaling          | -                          |
-
-3. **Model Architecture**
-
-- **Content-Based Filtering**
-```python
-{
-  "Features": ["genre", "release_year", "title"],
-  "Weights": [0.7, 0.2, 0.1],
-  "Similarity": "Cosine similarity",
-  "Vectorizer": "TF-IDF"
-}
-```
-
-- **Collaborative Filtering**
-
-```python
-{
-  "Algorithm": "ALS Matrix Factorization",
-  "Latent Factors": 50,
-  "Optimization": "Alternating Least Squares",
-  "Hyperparameters": {
-    "iterations": 15,
-    "regularization": 0.1
-  }
-}
-```
-
-- **Hybrid Combination**
-
-## final_score=0.6×CF_score+0.4×CB_score
 
 - **Keunggulan Performa**
 
