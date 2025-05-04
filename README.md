@@ -127,13 +127,14 @@ flowchart TD
   - Normalisasi skala rating (1-5)
 
 2. **Feature Engineering**
+
 | Feature Type       | Processing Method         | Details                     |
 |--------------------|---------------------------|----------------------------|
 | Multi-label genre  | Multi-hot encoding        | 19 kategori genre          |
 | Occupation         | One-hot encoding          | -                          |
 | Age/Gender         | Standard scaling          | -                          |
 
-3. Model Architecture
+3. **Model Architecture**
 
 - **Content-Based Filtering**
 ```python
@@ -159,7 +160,7 @@ flowchart TD
 }
 ```
 
-- ** Hybrid Combination**
+- **Hybrid Combination**
 
 ## final_score=0.6×CF_score+0.4×CB_score
 
@@ -186,6 +187,82 @@ flowchart TD
 # Performa menurun jika metadata tidak lengkap
 # Tag genre/demografi harus terus diperbarui
 ```
+
+### 2. Hybrid Weighted (Gabungan Numerik dengan Bobot)
+
+## Kata Pengantar
+Untuk membangun sistem rekomendasi yang akurat dan personalisasi, kami mengusulkan pendekatan **Hybrid Weighted** yang menggabungkan keunggulan Collaborative Filtering (CF), Content-Based Filtering (CBF), dan Knowledge-Based recommendations. Teknik ini memanfaatkan dataset pengguna (*user_id, rating, age, gender, occupation*) dan item (*movie_title, genre_0 hingga genre_18*) untuk menghasilkan rekomendasi yang lebih relevan.
+
+---
+
+## Workflow Algoritma/Pendekatan
+Berikut alur kerja hybrid weighted approach dalam bentuk flowchart:
+
+```mermaid
+flowchart TD
+    A[Input Data] --> B[Preprocessing: Normalisasi & Feature Extraction]
+    B --> C1[Collaborative Filtering Model]
+    B --> C2[Content-Based Filtering Model]
+    B --> C3[Knowledge-Based Rules]
+    C1 --> D[Generate CF Scores]
+    C2 --> D[Generate CBF Scores]
+    C3 --> D[Generate Knowledge-Based Scores]
+    D --> E[Hybrid Weighted Combination]
+    E --> F[Optimasi Bobot: Grid Search/ML]
+    F --> G[Final Recommendation]
+```
+
+Kelebihan
+Kombinasi Fleksibel: Bobot masing-masing metode (CF, CBF, Knowledge-Based) dapat disesuaikan berdasarkan performa.
+
+Optimasi Otomatis: Bobot (w1, w2, w3) dioptimasi menggunakan Grid Search atau model Ensemble Learning (XGBoost/Random Forest).
+
+Personalisasi Lebih Baik: Memanfaatkan fitur demografik (age, gender, occupation) dan genre film untuk rekomendasi yang lebih kontekstual.
+
+Handles Cold Start: Knowledge-Based rules membantu ketika data rating terbatas.
+
+Kekurangan
+Kompleksitas Komputasi: Membutuhkan lebih banyak sumber daya untuk menjalankan multiple model sekaligus.
+
+Tuning Bobot: Proses optimasi bobot bisa menjadi trial-and-error tanpa dataset validasi yang representatif.
+
+Ketergantungan Data: Kualitas genre (kategori one-hot-encoded) sangat memengaruhi performa CBF.
+
+### 3. Hybrid Switching (Bergantung Kondisi)
+
+Untuk mengatasi masalah cold start dan memaksimalkan akurasi rekomendasi, pendekatan Hybrid Switching secara dinamis memilih strategi terbaik berdasarkan kondisi data pengguna/item. Teknik ini menggabungkan Collaborative Filtering (CF), Content-Based Filtering (CBF), dan Demographic Filtering dengan mekanisme switching yang ditentukan oleh rule-based atau machine learning.
+
+```mermaid
+flowchart TD
+    A[Input Data: User-Item Interactions] --> B{Check Condition}
+    B -->|Cold Start: Few Interactions| C1[Content-Based/Demographic Filtering]
+    B -->|Enough Data| C2[Collaborative Filtering]
+    C1 & C2 --> D[Generate Recommendations]
+    D --> E[Evaluate Performance]
+    E --> F[Update Switching Rules]
+
+    subgraph Machine Learning-Based
+    B -->|ML Classifier| G[Predict Best Strategy]
+    G --> C1
+    G --> C2
+    end
+```
+
+Kelebihan
+Adaptif: Secara otomatis beralih ke metode yang paling sesuai (misal: CBF untuk pengguna baru).
+
+Mengatasi Cold Start: Rule-based switching memastikan rekomendasi tetap relevan meski data terbatas.
+
+Optimasi Dinamis: Jika menggunakan ML-based switching, model dapat belajar dari pola pengguna untuk memilih strategi terbaik.
+
+Efisiensi Sumber Daya: Hanya menjalankan satu metode yang diperlukan pada setiap kasus.
+
+Kekurangan
+Ketergantungan pada Threshold: Rule-based membutuhkan definisi jelas untuk "cukup data" (misal: minimal 5 rating).
+
+Kompleksitas Model ML: Klasifikasi untuk memilih strategi memerlukan pelatihan dan fitur tambahan.
+
+Risk of Over-Engineering: Jika kondisi terlalu sederhana, pendekatan ini bisa lebih rumit daripada hybrid biasa.
 
 
 # Data Understanding
