@@ -161,27 +161,31 @@ flowchart TD
 
 - ** Hybrid Combination**
 
-final_score=0.6×CF_score+0.4×CB_score
+## final_score=0.6×CF_score+0.4×CB_score
 
-⚡ Performance Advantages
-Keunggulan	Penjelasan
-Cold Start Handling	✔ New users: demographic-based
-✔ New items: content similarity
-Multidimensional Personalization	✔ Gabungan preferensi implisit & eksplisit
-Feature Optimization	✔ Pemanfaatan 19 genre categories
-✔ Pengolahan data demografi
-⚠️ Limitations
-diff
-- Computational Complexity:
-  * Butuh penyimpanan embedding matrix
-  * Pelatihan dua model terpisah
+- **Keunggulan Performa**
 
-- Weight Tuning:
-  ! Rasio 60:40 perlu validasi empiris
-  ! Sensitif terhadap distribusi data
+| **Keunggulan**               | **Penjelasan**                                                                 |
+|------------------------------|-------------------------------------------------------------------------------|
+| **Penanganan Cold Start**    | ✔ **Pengguna baru:** Rekomendasi berbasis demografi<br>✔ **Item baru:** Pendekatan similarity konten |
+| **Personalisasi Multidimensi** | ✔ Gabungan preferensi implisit & eksplisit<br>✔ Skor hybrid untuk rekomendasi seimbang |
+| **Optimalisasi Fitur**       | ✔ Memanfaatkan **19 kategori genre**<br>✔ Pengolahan data demografi tingkat lanjut |
 
-- Metadata Dependency:
-  # Kinerja turun jika metadata tidak lengkap
+- **Keterbatasan**
+
+```diff
+### Kompleksitas Komputasi:
++ Membutuhkan penyimpanan matriks embedding
++ Infrastruktur pelatihan dua model terpisah
+
+### Penyempurnaan Bobot:
+! Rasio 60:40 membutuhkan validasi empiris
+! Sensitif terhadap perubahan distribusi data
+
+### Ketergantungan Metadata:
+# Performa menurun jika metadata tidak lengkap
+# Tag genre/demografi harus terus diperbarui
+```
 
 
 # Data Understanding
