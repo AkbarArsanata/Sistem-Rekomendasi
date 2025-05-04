@@ -147,7 +147,6 @@ flowchart TD
 
 ### 2. Hybrid Weighted (Gabungan Numerik dengan Bobot)
 
-## Kata Pengantar
 Untuk membangun sistem rekomendasi yang akurat dan personalisasi, kami mengusulkan pendekatan **Hybrid Weighted** yang menggabungkan keunggulan Collaborative Filtering (CF), Content-Based Filtering (CBF), dan Knowledge-Based recommendations. Teknik ini memanfaatkan dataset pengguna (*user_id, rating, age, gender, occupation*) dan item (*movie_title, genre_0 hingga genre_18*) untuk menghasilkan rekomendasi yang lebih relevan.
 
 ---
@@ -169,21 +168,18 @@ flowchart TD
     F --> G[Final Recommendation]
 ```
 
-Kelebihan
-Kombinasi Fleksibel: Bobot masing-masing metode (CF, CBF, Knowledge-Based) dapat disesuaikan berdasarkan performa.
+- **Kelebihan**
 
-Optimasi Otomatis: Bobot (w1, w2, w3) dioptimasi menggunakan Grid Search atau model Ensemble Learning (XGBoost/Random Forest).
+- **Kombinasi Fleksibel**: Bobot masing-masing metode (CF, CBF, Knowledge-Based) dapat disesuaikan berdasarkan performa.  
+- **Optimasi Otomatis**: Bobot (w1, w2, w3) dioptimasi menggunakan Grid Search atau model Ensemble Learning (XGBoost/Random Forest).  
+- **Personalisasi Lebih Baik**: Memanfaatkan fitur demografik (*age, gender, occupation*) dan genre film untuk rekomendasi yang lebih kontekstual.  
+- **Handles Cold Start**: Knowledge-Based rules membantu ketika data rating terbatas.  
 
-Personalisasi Lebih Baik: Memanfaatkan fitur demografik (age, gender, occupation) dan genre film untuk rekomendasi yang lebih kontekstual.
+- **Kekurangan** 
 
-Handles Cold Start: Knowledge-Based rules membantu ketika data rating terbatas.
-
-Kekurangan
-Kompleksitas Komputasi: Membutuhkan lebih banyak sumber daya untuk menjalankan multiple model sekaligus.
-
-Tuning Bobot: Proses optimasi bobot bisa menjadi trial-and-error tanpa dataset validasi yang representatif.
-
-Ketergantungan Data: Kualitas genre (kategori one-hot-encoded) sangat memengaruhi performa CBF.
+- **Kompleksitas Komputasi**: Membutuhkan lebih banyak sumber daya untuk menjalankan multiple model sekaligus.  
+- **Tuning Bobot**: Proses optimasi bobot bisa menjadi *trial-and-error* tanpa dataset validasi yang representatif.  
+- **Ketergantungan Data**: Kualitas genre (*kategori one-hot-encoded*) sangat memengaruhi performa CBF.  
 
 ### 3. Hybrid Switching (Bergantung Kondisi)
 
@@ -204,22 +200,18 @@ flowchart TD
     G --> C2
     end
 ```
+- **Kelebihan**
 
-Kelebihan
-Adaptif: Secara otomatis beralih ke metode yang paling sesuai (misal: CBF untuk pengguna baru).
+- **Adaptif**: Secara otomatis beralih ke metode yang paling sesuai (misal: CBF untuk pengguna baru).  
+- **Mengatasi Cold Start**: Rule-based switching memastikan rekomendasi tetap relevan meski data terbatas.  
+- **Optimasi Dinamis**: Jika menggunakan ML-based switching, model dapat belajar dari pola pengguna untuk memilih strategi terbaik.  
+- **Efisiensi Sumber Daya**: Hanya menjalankan satu metode yang diperlukan pada setiap kasus.  
 
-Mengatasi Cold Start: Rule-based switching memastikan rekomendasi tetap relevan meski data terbatas.
+- **Kekurangan** 
 
-Optimasi Dinamis: Jika menggunakan ML-based switching, model dapat belajar dari pola pengguna untuk memilih strategi terbaik.
-
-Efisiensi Sumber Daya: Hanya menjalankan satu metode yang diperlukan pada setiap kasus.
-
-Kekurangan
-Ketergantungan pada Threshold: Rule-based membutuhkan definisi jelas untuk "cukup data" (misal: minimal 5 rating).
-
-Kompleksitas Model ML: Klasifikasi untuk memilih strategi memerlukan pelatihan dan fitur tambahan.
-
-Risk of Over-Engineering: Jika kondisi terlalu sederhana, pendekatan ini bisa lebih rumit daripada hybrid biasa.
+- **Ketergantungan pada Threshold**: Rule-based membutuhkan definisi jelas untuk "cukup data" (misal: minimal 5 rating).  
+- **Kompleksitas Model ML**: Klasifikasi untuk memilih strategi memerlukan pelatihan dan fitur tambahan.  
+- **Risk of Over-Engineering**: Jika kondisi terlalu sederhana, pendekatan ini bisa lebih rumit daripada hybrid biasa.  
 
 
 # Data Understanding
