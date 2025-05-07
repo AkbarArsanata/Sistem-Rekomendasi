@@ -2,19 +2,19 @@
 
 # Project Overview
 
-Era digital ditandai dengan **information overload** yang membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi untuk memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital.[^1]  
+Era digital ditandai dengan **information overload** yang membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi untuk memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital. [^1]  
 
 Kemampuan untuk menyaring informasi dan menyajikan konten yang paling relevan bagi pengguna tidak hanya meningkatkan kepuasan pengguna tetapi juga menjadi faktor kunci dalam kesuksesan bisnis digital.
 Berikut pengaruh **Kualitas dan Relevansi Konten**:  
   - Faktor kunci dalam membangun citra dan reputasi institusi.  
   - Meningkatkan pengalaman audiens, membangun kredibilitas, serta memperkuat komunikasi.  
   - Strategi penentuan relevansi yang meliputi Analisis audiens dan penelitian pasar dan Penyampaian pesan sesuai kebutuhan dan preferensi pengguna  
-  - Konten penting yang kurang populer harus disajikan secara menarik untuk dampak positif.[^2]
+  - Konten penting yang kurang populer harus disajikan secara menarik untuk dampak positif. [^2]
 
 Tak hanya itu **Pengalaman Pengguna** juga berperan sangat penting seperti: 
   - Berperan penting dalam membentuk citra positif layanan elektronik.  
   - Menciptakan loyalitas, meningkatkan kepuasan, dan kepercayaan pengguna. 
-  - Pengalaman buruk dapat menyebabkan frustrasi dan migrasi pengguna ke platform lain.[^3]  
+  - Pengalaman buruk dapat menyebabkan frustrasi dan migrasi pengguna ke platform lain. [^3]  
 
 Tidak berbeda jauh, industri film juga menghadapi tantangan besar dalam menghadirkan konten yang sesuai dengan preferensi beragam pengguna. Perilaku konsumsi media menimbulkan tantangan utama dalam distribusi dan eksibisi, seperti:
 
@@ -30,7 +30,7 @@ Tidak berbeda jauh, industri film juga menghadapi tantangan besar dalam menghadi
    - Penyeimbangan distribusi konvensional (bioskop) dan digital.  
    - Strategi distribusi adaptif dan dukungan kebijakan pemerintah (misalnya insentif pajak untuk film kurang diminati).
   
-**Tantangan terbesar**: Bukan hanya ketersediaan layar, tetapi bagaimana menghadirkan konten relevan yang mudah diakses oleh audiens beragam, baik melalui bioskop maupun platform digital.[^4]  
+**Tantangan terbesar**: Bukan hanya ketersediaan layar, tetapi bagaimana menghadirkan konten relevan yang mudah diakses oleh audiens beragam, baik melalui bioskop maupun platform digital. [^4]  
 
 Selain itu Cold start menjadi tantangan utama dalam industri film dengan dampak:  
 
@@ -39,179 +39,59 @@ Selain itu Cold start menjadi tantangan utama dalam industri film dengan dampak:
 - **Film Baru**:  
   - Minim eksposur, kurang kompetitif di pasar.  
 - **Platform Streaming**:  
-  - Risiko kehilangan pelanggan jika rekomendasi awal tidak menarik.[^5]
+  - Risiko kehilangan pelanggan jika rekomendasi awal tidak menarik. [^5]
  
-Untuk mengatasi hal tersebut dapat digunakan sistem hyrbid yang menggabungkan **Collaborative Filtering** (berbasis interaksi pengguna) dan **Content-Based Filtering** (berbasis metadata film seperti genre, sutradara, atau aktor).  Metode ini mampu memberikan rekomendasi awal untuk pengguna atau film baru dengan memanfaatkan kesamaan konten.[^6]  
+Untuk mengatasi hal tersebut dapat digunakan sistem hyrbid yang menggabungkan **Collaborative Filtering** (berbasis interaksi pengguna) dan **Content-Based Filtering** (berbasis metadata film seperti genre, sutradara, atau aktor).  Metode ini mampu memberikan rekomendasi awal untuk pengguna atau film baru dengan memanfaatkan kesamaan konten. [^6]  
 
 
 # Busines Understanding
 
-## Problem Statement
-Tantangan utama yang diidentifikasi dalam industri film dan sistem rekomendasi:
+## **Problem Statements**
 
-1. **Overload Informasi dan Relevansi Konten**
-   - Banjir informasi digital menyulitkan pengguna menemukan konten film yang relevan
-   - Sistem konvensional sering gagal menampilkan konten berkualitas yang kurang populer
+### **Pernyataan Masalah 1: Cold Start Problem**  
+Sistem rekomendasi tradisional tidak efektif dalam menangani pengguna baru dan film baru karena tidak ada riwayat interaksi atau rating sebelumnya.  
+Contohnya: Pengguna baru tidak mendapatkan rekomendasi yang relevan, sehingga menurunkan kepuasan awal dan potensi retensi.
 
-2. **Distribusi dan Aksesibilitas Film Tidak Merata**
-   - Dominasi film asing dan distribusi bioskop tidak seimbang membatasi jangkauan film lokal/nasional
-   - Minimnya layar bioskop di daerah non-urban memperparah masalah ini
+### **Pernyataan Masalah 2: Bias Popularitas**  
+Sistem cenderung terlalu sering merekomendasikan film populer, mengabaikan film niche atau berkualitas yang kurang dikenal.  
+Contohnya: Rekomendasi yang diberikan menjadi terlalu umum dan tidak personal.
 
-3. **Masalah Cold Start**
-   - Pengguna baru: Sistem tidak bisa memberikan rekomendasi personal karena kurangnya data interaksi
-   - Film baru: Minim eksposur karena algoritma lebih memprioritaskan konten populer
+### **Pernyataan Masalah 3: Ketergantungan pada Data Demografik**  
+Penggunaan atribut demografik (seperti usia, gender, pekerjaan) dapat menyebabkan asumsi keliru dan rekomendasi stereotipikal.  
+Contohnya: Sistem menyarankan film romance hanya karena pengguna adalah perempuan, tanpa mempertimbangkan preferensi aktual.
 
-4. **Persaingan dengan Platform Digital Global**
-   - Platform streaming (Netflix, Viu) mendominasi dengan konten global, menyisihkan film lokal
-
-5. **Pengalaman Pengguna (UX) yang Buruk**
-   - Rekomendasi tidak akurat/tidak personal menurunkan kepuasan dan meningkatkan churn rate
-
-## Goals
-Target proyek untuk menjawab permasalahan di atas:
-
-1. **Membangun Sistem Rekomendasi Hybrid**
-   - Menggabungkan collaborative + content-based filtering untuk meningkatkan akurasi, khususnya bagi pengguna/film baru
-
-2. **Meningkatkan Aksesibilitas Konten Lokal/Nasional**
-   - Mengoptimalkan rekomendasi film lokal menggunakan metadata (genre, sutradara, bahasa)
-
-3. **Mempersonalisasi Pengalaman Pengguna**
-   - Menganalisis preferensi pengguna (riwayat tonton, rating) untuk mengurangi overload informasi
-
-4. **Strategi Distribusi Digital-Konvensional**
-   - Mengintegrasikan data bioskop dan streaming untuk rekomendasi multi-saluran
-
-5. **Mengurangi Tingkat Churn Platform**
-   - Meningkatkan retensi pengguna dengan rekomendasi onboarding yang lebih relevan
-
-## Penyelarasan Masalah-Tujuan
-
-| Pernyataan Masalah               | Tujuan                                 |
-|----------------------------------|----------------------------------------|
-| Overload informasi              | Sistem rekomendasi hybrid              |
-| Distribusi tidak merata          | Fokus pada konten lokal/nasional       |
-| Masalah cold start               | Gabungkan metadata + interaksi pengguna|
-| Persaingan platform digital      | Rekomendasi multi-saluran              |
-| UX buruk                         | Personalisasi berbasis preferensi      |
-
-## Solution Statements
-
-### 1. Hybrid Mixed (Kombinasi Beberapa Strategi)
-
-Solusi hybrid dikembangkan untuk mengatasi tantangan spesifik dalam sistem rekomendasi film dengan memanfaatkan keunggulan dua pendekatan utama: Collaborative Filtering dan Content-Based Filtering. Pendekatan ini dirancang khusus untuk dataset yang mencakup:
-
-- **Data pengguna**: rating, timestamp, usia, gender, pekerjaan
-- **Data film**: judul, tahun rilis, 19 genre berbeda
-- **Interaksi**: riwayat rating pengguna
-
-### Alur Kerja Algoritma
-
-```mermaid
-flowchart TD
-    A[Data Input] --> B[Preprocessing Data]
-    B --> C[Content-Based Filtering]
-    B --> D[Collaborative Filtering]
-    C --> E[Ekstraksi Fitur Film]
-    E --> F[Similarity Konten]
-    D --> G[Matrix Factorization]
-    F --> H[Kombinasi Hybrid]
-    G --> H
-    H --> I[Ranking Rekomendasi]
-    I --> J[Output Rekomendasi]
-```
-
-- **Keunggulan Performa**
-
-| **Keunggulan**               | **Penjelasan**                                                                 |
-|------------------------------|-------------------------------------------------------------------------------|
-| **Penanganan Cold Start**    | ✔ **Pengguna baru:** Rekomendasi berbasis demografi<br>✔ **Item baru:** Pendekatan similarity konten |
-| **Personalisasi Multidimensi** | ✔ Gabungan preferensi implisit & eksplisit<br>✔ Skor hybrid untuk rekomendasi seimbang |
-| **Optimalisasi Fitur**       | ✔ Memanfaatkan **19 kategori genre**<br>✔ Pengolahan data demografi tingkat lanjut |
-
-- **Keterbatasan**
-
-```diff
-### Kompleksitas Komputasi:
-+ Membutuhkan penyimpanan matriks embedding
-+ Infrastruktur pelatihan dua model terpisah
-
-### Penyempurnaan Bobot:
-! Rasio 60:40 membutuhkan validasi empiris
-! Sensitif terhadap perubahan distribusi data
-
-### Ketergantungan Metadata:
-# Performa menurun jika metadata tidak lengkap
-# Tag genre/demografi harus terus diperbarui
-```
-
-### 2. Hybrid Weighted (Gabungan Numerik dengan Bobot)
-
-Untuk membangun sistem rekomendasi yang akurat dan personalisasi, kami mengusulkan pendekatan **Hybrid Weighted** yang menggabungkan keunggulan Collaborative Filtering (CF), Content-Based Filtering (CBF), dan Knowledge-Based recommendations. Teknik ini memanfaatkan dataset pengguna (*user_id, rating, age, gender, occupation*) dan item (*movie_title, genre_0 hingga genre_18*) untuk menghasilkan rekomendasi yang lebih relevan.
+### **Pernyataan Masalah 4: Over-Specialization**  
+Sistem berbasis konten sering kali hanya menyarankan film yang terlalu mirip dengan yang sudah disukai, menyebabkan kurangnya eksplorasi genre baru.  
+Contohnya: Pengguna hanya direkomendasikan film horror karena sebelumnya menyukai genre tersebut.
 
 ---
 
-## Workflow Algoritma/Pendekatan
-Berikut alur kerja hybrid weighted approach dalam bentuk flowchart:
+## **Goals**
 
-```mermaid
-flowchart TD
-    A[Input Data] --> B[Preprocessing: Normalisasi & Feature Extraction]
-    B --> C1[Collaborative Filtering Model]
-    B --> C2[Content-Based Filtering Model]
-    B --> C3[Knowledge-Based Rules]
-    C1 --> D[Generate CF Scores]
-    C2 --> D[Generate CBF Scores]
-    C3 --> D[Generate Knowledge-Based Scores]
-    D --> E[Hybrid Weighted Combination]
-    E --> F[Optimasi Bobot: Grid Search/ML]
-    F --> G[Final Recommendation]
-```
+### **Jawaban untuk Masalah 1: Mengatasi Cold Start**  
+Menggunakan pendekatan hybrid yang mengombinasikan Content-Based Filtering (CBF) dan Collaborative Filtering (CF), sehingga pengguna atau film baru tetap bisa direkomendasikan dengan relevan.
 
-- **Kelebihan**
+### **Jawaban untuk Masalah 2: Mengurangi Bias Popularitas**  
+Memasukkan mekanisme diversifikasi rekomendasi agar film niche dan populer dapat muncul seimbang dalam hasil rekomendasi.
 
-- **Kombinasi Fleksibel**: Bobot masing-masing metode (CF, CBF, Knowledge-Based) dapat disesuaikan berdasarkan performa.  
-- **Optimasi Otomatis**: Bobot (w1, w2, w3) dioptimasi menggunakan Grid Search atau model Ensemble Learning (XGBoost/Random Forest).  
-- **Personalisasi Lebih Baik**: Memanfaatkan fitur demografik (*age, gender, occupation*) dan genre film untuk rekomendasi yang lebih kontekstual.  
-- **Handles Cold Start**: Knowledge-Based rules membantu ketika data rating terbatas.  
+### **Jawaban untuk Masalah 3: Mengurangi Ketergantungan pada Data Demografik**  
+Mengutamakan data perilaku dan konten film dalam perhitungan similarity dibanding atribut demografik, sehingga menghindari stereotip.
 
-- **Kekurangan** 
+### **Jawaban untuk Masalah 4: Menghindari Over-Specialization**  
+Menambahkan elemen diversifikasi dan eksplorasi dalam hasil rekomendasi agar pengguna juga mendapat saran dari genre baru yang relevan.
 
-- **Kompleksitas Komputasi**: Membutuhkan lebih banyak sumber daya untuk menjalankan multiple model sekaligus.  
-- **Tuning Bobot**: Proses optimasi bobot bisa menjadi *trial-and-error* tanpa dataset validasi yang representatif.  
-- **Ketergantungan Data**: Kualitas genre (*kategori one-hot-encoded*) sangat memengaruhi performa CBF.  
+---
 
-### 3. Hybrid Switching (Bergantung Kondisi)
+## **Solution Approach**
 
-Untuk mengatasi masalah cold start dan memaksimalkan akurasi rekomendasi, pendekatan Hybrid Switching secara dinamis memilih strategi terbaik berdasarkan kondisi data pengguna/item. Teknik ini menggabungkan Collaborative Filtering (CF), Content-Based Filtering (CBF), dan Demographic Filtering dengan mekanisme switching yang ditentukan oleh rule-based atau machine learning.
+### **Solution 1: Content-Based Filtering (CBF)**  
+Menggunakan informasi konten film (seperti genre dan tahun rilis) untuk menghitung kesamaan antar film dengan cosine similarity. Cocok untuk cold start karena tidak bergantung pada interaksi pengguna lain.
 
-```mermaid
-flowchart TD
-    A[Input Data: User-Item Interactions] --> B{Check Condition}
-    B -->|Cold Start: Few Interactions| C1[Content-Based/Demographic Filtering]
-    B -->|Enough Data| C2[Collaborative Filtering]
-    C1 & C2 --> D[Generate Recommendations]
-    D --> E[Evaluate Performance]
-    E --> F[Update Switching Rules]
+### **Solution 2: Collaborative Filtering (CF)**  
+Mengandalkan kesamaan preferensi antar pengguna berdasarkan rating film. Lebih personal namun butuh cukup data interaksi antar pengguna.
 
-    subgraph Machine Learning-Based
-    B -->|ML Classifier| G[Predict Best Strategy]
-    G --> C1
-    G --> C2
-    end
-```
-- **Kelebihan**
-
-- **Adaptif**: Secara otomatis beralih ke metode yang paling sesuai (misal: CBF untuk pengguna baru).  
-- **Mengatasi Cold Start**: Rule-based switching memastikan rekomendasi tetap relevan meski data terbatas.  
-- **Optimasi Dinamis**: Jika menggunakan ML-based switching, model dapat belajar dari pola pengguna untuk memilih strategi terbaik.  
-- **Efisiensi Sumber Daya**: Hanya menjalankan satu metode yang diperlukan pada setiap kasus.  
-
-- **Kekurangan** 
-
-- **Ketergantungan pada Threshold**: Rule-based membutuhkan definisi jelas untuk "cukup data" (misal: minimal 5 rating).  
-- **Kompleksitas Model ML**: Klasifikasi untuk memilih strategi memerlukan pelatihan dan fitur tambahan.  
-- **Risk of Over-Engineering**: Jika kondisi terlalu sederhana, pendekatan ini bisa lebih rumit daripada hybrid biasa.  
+### **Solution 3: Hybrid Approach (CBF + CF)**  
+Menggabungkan kedua metode di atas dengan bobot tertentu agar sistem tetap akurat dan fleksibel, terutama dalam mengatasi cold start dan menjaga personalisasi serta diversifikasi.
 
 
 # Data Understanding
@@ -329,7 +209,7 @@ flowchart TD
 
 ![image](https://github.com/user-attachments/assets/41163c18-d354-4e3d-8b8d-97032ceda7ca)
 
-### 🎬 Genre dengan Fluktuasi Tertinggi
+### Genre dengan Fluktuasi Tertinggi
 1. **Horror (genre_11)**: 
    - Mencapai puncak di Oktober (+15-20% dari rata-rata) 
    - Konsisten dengan tradisi Halloween
@@ -356,7 +236,7 @@ flowchart TD
 
 ## Analisis Kompetitif Genre
 
-### 🔥 Genre yang Saling Menggantikan
+### Genre yang Saling Menggantikan
 | Bulan | Genre Naik | Genre Turun | Rasio |
 |-------|------------|-------------|-------|
 | Nov-Dec | Fantasy (+7%) | Crime (-5%) | 1.4:1 |
@@ -769,91 +649,101 @@ Rekomendasi ini dapat membantu pengguna menemukan film yang tidak hanya menghibu
 
 
 
-# Evaluation
+# **Evaluasi Sistem Rekomendasi**
+
+---
+
+## **1. Metrik Evaluasi yang Digunakan**
+
+### **a. NDCG@10 (Normalized Discounted Cumulative Gain)**
+- **Formula**:  
+  ![NDCG Formula](https://latex.codecogs.com/png.latex?NDCG@k%20=%20\frac{DCG@k}{IDCG@k})  
+  - \(DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i+1)}\)  
+  - \(IDCG@k\) adalah nilai ideal DCG jika item relevan diurutkan sempurna.
+
+- **Cara Kerja**:  
+  Mengukur seberapa baik sistem mengurutkan item relevan di posisi atas. Skor 1 menunjukkan urutan sempurna.
+
+- **Alasan Penggunaan**:  
+  Ideal untuk sistem rekomendasi yang mengutamakan urutan item relevan di posisi awal (seperti rekomendasi film).
+
+---
+
+### **b. Diversity (Keberagaman)**
+- **Formula**:  
+  \(Diversity = 1 - \text{Rata-rata Similarity Cosine antar Item Direkomendasikan}\)
+
+- **Cara Kerja**:  
+  Mengukur seberapa beragam item dalam satu set rekomendasi. Nilai lebih tinggi menunjukkan lebih banyak variasi genre/konten.
+
+- **Alasan Penggunaan**:  
+  Mencegah rekomendasi menjadi monoton dan memperkaya pengalaman pengguna.
+
+---
+
+### **c. Novelty (Kebaruan)**
+- **Formula**:  
+  \(Novelty = -\sum \log_2(Popularitas\_Item)\)  
+  (Popularitas item dihitung dari frekuensi kemunculan di data pelatihan)
+
+- **Cara Kerja**:  
+  Mengukur seberapa unik atau "jarang terlihat" item yang direkomendasikan. Nilai tinggi berarti lebih kebaruan.
+
+- **Alasan Penggunaan**:  
+  Menghindari saran film yang terlalu umum atau sudah diketahui semua orang.
+
+---
+
+## **2. Hasil Evaluasi Berdasarkan Metrik**
+
+### **a. Collaborative Filtering (CF)**
+- **NDCG@10**: 0.1910  
+  → Rekomendasi kurang akurat (hanya 19.1% mendekati urutan ideal).
+- **Diversity**: 0.4312  
+  → Cukup beragam (tingkat dissimilaritas antar item 43.12%).
+- **Novelty**: 8.0685  
+  → Rekomendasi relatif novel (tidak terlalu umum).
+
+---
+
+### **b. Content-Based Filtering (CBF)**
+- **NDCG@10**: 0.5225  
+  → Lebih akurat dibanding CF (mendekati 52.25% dari urutan ideal).
+- **Diversity**: 0.0000  
+  → Tidak beragam (item terlalu mirip satu sama lain).
+- **Novelty**: 11.8166  
+  → Sangat novel, namun bisa terlalu niche untuk sebagian pengguna.
+
+---
+
+### **c. Hybrid (CBF + CF)**
+- **NDCG@10**: 0.6720  
+  → Paling akurat (mendekati urutan ideal 67.2%).
+- **Diversity**: 0.0000  
+  → Masih bermasalah dalam keberagaman seperti CBF.
+- **Novelty**: 11.8203  
+  → Sangat novel (mirip dengan CBF).
+
+---
+
+## **3. Analisis Komparatif**
+
+| **Metrik**     | **CF**   | **CBF**  | **Hybrid** | **Interpretasi**                      |
+|----------------|----------|----------|------------|----------------------------------------|
+| **NDCG@10**     | 0.1910   | 0.5225   | 0.6720     | Hybrid paling akurat                   |
+| **Diversity**   | 0.4312   | 0.0000   | 0.0000     | CF paling beragam                      |
+| **Novelty**     | 8.0685   | 11.8166  | 11.8203    | CBF & Hybrid lebih menyarankan item unik |
+
+---
+
+## **Kesimpulan**
+- **Hybrid** unggul dalam akurasi, tetapi perlu perbaikan dalam keberagaman.
+- **CF** lebih baik untuk diversitas namun lemah dalam akurasi.
+- **CBF dan Hybrid** sangat baik dalam novelty, namun risiko over-niche.
+- Kombinasi teknik dan penyesuaian bobot bisa ditelusuri lebih lanjut untuk mengoptimalkan ketiga metrik ini secara seimbang.
 
 
-
-
-Laporan Proyek Machine Learning - Nama Anda
-Project Overview
-Pada bagian ini, Kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
-
-Rubrik/Kriteria Tambahan (Opsional):
-
-Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-Format Referensi dapat mengacu pada penulisan sitasi IEEE, APA atau secara umum seperti di sini
-Sumber yang bisa digunakan Scholar
-Business Understanding
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
-Problem Statements
-Menjelaskan pernyataan masalah:
-
-Pernyataan Masalah 1
-Pernyataan Masalah 2
-Pernyataan Masalah n
-Goals
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-
-Jawaban pernyataan masalah 1
-Jawaban pernyataan masalah 2
-Jawaban pernyataan masalah n
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
-
-Rubrik/Kriteria Tambahan (Opsional):
-
-Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut:
-
-Solution statements
-Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
-Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: UCI Machine Learning Repository.
-
-Selanjutnya, uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
-
-Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-
-accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-cuisine : merupakan jenis masakan yang disajikan pada restoran.
-dst
-Rubrik/Kriteria Tambahan (Opsional):
-
-Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
-Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-Rubrik/Kriteria Tambahan (Opsional):
-
-Menjelaskan proses data preparation yang dilakukan
-Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
-
-Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
-
-Rubrik/Kriteria Tambahan (Opsional):
-
-Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
-
-Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
-
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-Rubrik/Kriteria Tambahan (Opsional):
-
-Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
----Ini adalah bagian akhir laporan---
-
-Catatan:
-
-Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor Dillinger, Github Guides: Mastering markdown, atau sumber lain di internet. Semangat!
-Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
-
-Reference
+# Reference
 
 [^1] MESIN REKOMENDASI FILM MENGGUNAKAN METODE KEMIRIPAN GENRE BERBASIS COLLABORATIVE FILTERING. (n.d.).
 [^2] Zaman, S., Teknik, D., Uin, I., Malik, M., & Malang, I. (n.d.). Rencana Strategis Komunikasi Institusi: Membangun Kualitas dan Relevansi Konten untuk Masa Depan Ringkasan Eksekutif A. Pendahuluan.
