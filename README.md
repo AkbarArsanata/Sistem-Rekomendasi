@@ -558,19 +558,21 @@ Rekomendasi ini ideal untuk pengguna yang mencari film dengan kualitas cerita ya
   - Efektif jika ada data rating yang cukup.
 
 ### Cara Kerja
+
 ```mermaid
 flowchart TD
-    A[Start] --> B[Input: User Demografi (age, gender, occupation)]
-    B --> C[Buat User_ID]
-    C --> D{Cek User di Data CF?}
-    D -->|Ya| E[Ambil Skor CF]
-    D -->|Tidak| F[Skor CF = 0]
-    E & F --> G[Ambil Skor CBF]
-    G --> H[Gabungkan Skor: Hybrid = α*CBF + (1-α)*CF]
-    H --> I[Filter Item yang Ada di Kedua Model]
-    I --> J[Urutkan Berdasarkan Skor Hybrid]
-    J --> K[Output Rekomendasi]
-    K --> L[End]
+    A([Start]) --> B[/"Input User Demografi\n(age, gender, occupation)"/]
+    B --> C[("Buat User_ID")]
+    C --> D{"Cek User\ndi Data CF?"}
+    D -->|Ya| E[/"Ambil Skor CF"/]
+    D -->|Tidak| F[/"Skor CF = 0"/]
+    E --> G[/"Ambil Skor CBF"/]
+    F --> G
+    G --> H[/"Gabungkan Skor:\nHybrid = α*CBF + (1-α)*CF"/]
+    H --> I[/"Filter Item yang\nAda di Kedua Model"/]
+    I --> J[/"Urutkan Berdasarkan\nSkor Hybrid"/]
+    J --> K[/"Output Rekomendasi"/]
+    K --> L([End])
 ```
 
 ### Top N Recommendation
