@@ -317,15 +317,15 @@ flowchart TD
 
 ## Exploratory Data Analysis
 
-### Rata - rata per bulan
+## Rata - rata per bulan
 
 ![image](https://github.com/user-attachments/assets/90f5fdbb-4a17-40a9-b7d2-18ae39d574ae)
 
-    Pada kolom rating, penurunan nilai rata-rata dari waktu ke waktu dapat mengindikasikan adanya penurunan kepuasan pengguna terhadap konten film yang ditawarkan. Hal ini mungkin disebabkan oleh perubahan kualitas film, ekspektasi pengguna yang semakin tinggi, atau faktor eksternal seperti banyaknya kompetitor di pasar streaming. Sementara itu, fluktuasi pada kolom age menunjukkan variasi usia rata-rata pengguna dari bulan ke bulan, yang bisa mencerminkan perubahan demografi penonton. Misalnya, peningkatan usia rata-rata mungkin terjadi ketika platform lebih banyak menayangkan film-film klasik yang menarik minat penonton dewasa, sedangkan penurunan usia rata-rata dapat terkait dengan rilis film-film animasi atau genre young adult yang populer di kalangan penonton muda.
+  Pada kolom rating, penurunan nilai rata-rata dari waktu ke waktu dapat mengindikasikan adanya penurunan kepuasan pengguna terhadap konten film yang ditawarkan. Hal ini mungkin disebabkan oleh perubahan kualitas film, ekspektasi pengguna yang semakin tinggi, atau faktor eksternal seperti banyaknya kompetitor di pasar streaming. Sementara itu, fluktuasi pada kolom age menunjukkan variasi usia rata-rata pengguna dari bulan ke bulan, yang bisa mencerminkan perubahan demografi penonton. Misalnya, peningkatan usia rata-rata mungkin terjadi ketika platform lebih banyak menayangkan film-film klasik yang menarik minat penonton dewasa, sedangkan penurunan usia rata-rata dapat terkait dengan rilis film-film animasi atau genre young adult yang populer di kalangan penonton muda.
 
-    Untuk kolom video_release_date, pola yang terlihat mungkin berkaitan dengan musim rilis film. Beberapa bulan tertentu, seperti akhir tahun (November-Desember), sering kali menjadi periode rilis film-film besar, sehingga memengaruhi rata-rata tanggal rilis video. Sebaliknya, bulan-bulan dengan aktivitas rilis yang lebih rendah, seperti awal tahun, dapat menunjukkan penurunan dalam nilai rata-rata. Interpretasi ini memperkuat pentingnya analisis lebih lanjut untuk memastikan apakah pola tersebut bersifat musiman atau dipengaruhi oleh faktor lain seperti strategi distribusi konten oleh platform.
+  Untuk kolom video_release_date, pola yang terlihat mungkin berkaitan dengan musim rilis film. Beberapa bulan tertentu, seperti akhir tahun (November-Desember), sering kali menjadi periode rilis film-film besar, sehingga memengaruhi rata-rata tanggal rilis video. Sebaliknya, bulan-bulan dengan aktivitas rilis yang lebih rendah, seperti awal tahun, dapat menunjukkan penurunan dalam nilai rata-rata. Interpretasi ini memperkuat pentingnya analisis lebih lanjut untuk memastikan apakah pola tersebut bersifat musiman atau dipengaruhi oleh faktor lain seperti strategi distribusi konten oleh platform.
 
-### Rata rata genre per bulan
+## Rata rata genre per bulan
 
 ![image](https://github.com/user-attachments/assets/41163c18-d354-4e3d-8b8d-97032ceda7ca)
 
@@ -365,7 +365,7 @@ flowchart TD
 *Interpretasi*: Penonton cenderung beralih dari genre realistik ke spekulatif di musim dingin
 
 
-### Distribusi 
+## Distribusi 
 
 #### Numerikal
 
@@ -399,12 +399,12 @@ Keterkaitan antara data pekerjaan dan genre film semakin memperkuat narasi ini. 
 
 Kesimpulan: Dataset ini tidak hanya menggambarkan preferensi genre, tetapi juga merefleksikan dinamika gender dan demografik pengguna. Ketidakseimbangan yang terlihat bisa berasal dari bias budaya, bias platform, atau bahkan metode pengumpulan data. Untuk menciptakan ekosistem yang lebih inklusif, perlu ada upaya untuk mempromosikan keberagaman genre dan memastikan representasi yang seimbang bagi semua kelompok pengguna. Analisis lebih lanjut dengan mempertimbangkan variabel seperti usia, lokasi, dan preferensi pribadi akan membantu mengungkap wawasan yang lebih mendalam.
 
-### Box Plot
+## Box Plot
 ![image](https://github.com/user-attachments/assets/8dcd9c9d-5fcc-4817-8d13-de89a7205d7b)
 
 Dapat dilihat pada visualisasi diatas tak sedikit variable memiliki outlier namun pada kasus ini akan kita biarkan karna Outlier dalam data misal usia dan gender dapat menjadi informasi penting seperti penonton berusia 70 tahun di tengah dominasi kelompok usia muda, justru dapat menjadi aset berharga bagi sistem rekomendasi. Kelompok minoritas ini sering kali mewakili segmen nyata dengan preferensi unik—misalnya, pensiunan yang aktif menonton film klasik, drama period, atau dokumenter. Dengan mempertahankan outlier, sistem tidak hanya menjaga diversitas data tetapi juga berpeluang menyajikan rekomendasi yang lebih inklusif dan terpersonalisasi untuk niche audience. Hal ini sejalan dengan prinsip bahwa sistem rekomendasi yang baik harus mampu melayani seluruh spektrum pengguna, termasuk kelompok yang secara statistik jarang muncul. Selain itu, keberadaan outlier dapat membantu mengidentifikasi pola tersembunyi, seperti ketertarikan generasi tua terhadap konten bernostalgia, yang mungkin terlewatkan jika data tersebut dihilangkan. Dengan demikian, mempertahankan outlier—sambil memastikan kualitas data tetap valid—justru akan memperkaya kemampuan sistem dalam memahami keragaman preferensi pengguna.
 
-### Missing Value
+## Missing Value
 ![image](https://github.com/user-attachments/assets/af319147-9d99-497b-9413-456e570a1029)
 
 Dapat dilihat diatas bahwa terlihat banyak sekali missing value pada video_release_date dengan persenatse mendekati 100%, untuk kolom numerik yang lain dapat dilihat bahwa tidak ada indikasi adanya missing value. Untuk kolom kategorik biasanya missing value tidak berisi nan sehingga tidak teridentifikasi. Mari kita identifikasi lebih lanjut pada kolom lainnya di data preparation
@@ -462,6 +462,8 @@ Ekstraksi tahun dari kolom `release_date` menjadi kolom `release_year` dilakukan
 - **Reduksi Redundansi**: Hindari duplikasi karena tahun juga sering tercantum di judul.
 
 ---
+## Outlier
+Karna sudah disebutkan pada data understanding bahwa outlier akan memberikan informasi yang penting maka kita akan biarkan outlier ini dan tidak akan dilakukan penanaganan lebih lanjut
 
 ## Ekstrak Judul Film (`movie_title`)
 
@@ -480,6 +482,292 @@ Ini merupakan bagian dari upaya menjaga **kebersihan dan efisiensi data** dalam 
 
 
 # Modeling
+
+## 1. Sistem Rekomendasi Berbasis Konten (Content-Based Filtering)
+
+Sistem Rekomendasi Berbasis Konten (Content-Based Filtering) adalah salah satu pendekatan dalam sistem rekomendasi yang merekomendasikan item kepada pengguna berdasarkan kesamaan antara konten/item yang disukai di masa lalu dengan item baru yang mungkin diminati. Sistem ini bekerja dengan menganalisis fitur atau atribut dari item yang telah berinteraksi dengan pengguna (misalnya, produk, film, musik, artikel) dan mencari item lain dengan karakteristik serupa.
+
+### Cara Kerja
+
+```mermaid
+flowchart TD
+    A[Start] --> B[Load Data]
+    B --> C[Preprocessing: Select Features & Optimize Data Types]
+    C --> D[Identify User Profile: Gender + Occupation]
+    D --> E[Get Top-Rated Movies by Similar Users]
+    E --> F{Any Liked Movies?}
+    F -->|Yes| G[Calculate Cosine Similarity]
+    F -->|No| H[Return Empty Recommendations]
+    G --> I[Average Similarity Scores]
+    I --> J[Filter Out Already Liked Movies]
+    J --> K[Sort by Similarity Score]
+    K --> L[Return Recommendations]
+    H --> L
+    L --> M[End]
+```
+
+### Top N Recomendation
+**Informasi Pengguna**
+- **Jenis Kelamin**: Laki-laki (M)
+- **Pekerjaan**: Bidang hiburan (*entertainment*)
+- **Film yang Disukai (dari pengguna serupa)**:  
+  - *Gattaca*  
+  - *Big Sleep*
+
+---
+
+**Rekomendasi Teratas**
+
+| No. | Judul Film                   | Skor Kemiripan |
+|-----|------------------------------|----------------|
+| 1   | Chinatown                    | 1.0000         |
+| 2   | 2001: A Space Odyssey        | 1.0000         |
+| 3   | Day the Earth Stood Still    | 1.0000         |
+| 4   | Palmetto                     | 1.0000         |
+| 5   | Ice Storm                   | 1.0000         |
+| 6   | Trainspotting                | 1.0000         |
+| 7   | Powder                       | 1.0000         |
+| 8   | Ladybird Ladybird            | 1.0000         |
+| 9   | Angela                       | 1.0000         |
+| 10  | Desert Winds                 | 1.0000         |
+
+---
+
+**Interpretasi**
+
+Berdasarkan data pengguna serupa dengan karakteristik gender *laki-laki* dan pekerjaan di bidang *entertainment*, serta preferensi film seperti *Gattaca* dan *Big Sleep*, sistem menghasilkan rekomendasi dengan skor kemiripan tertinggi (1.0000) terhadap beberapa film.
+
+- **Kesamaan Genre dan Tema**: Film seperti *Chinatown* dan *Big Sleep* berbagi unsur genre seperti misteri dan film-noir, sementara *Gattaca* berbagi unsur sci-fi dan narasi futuristik dengan film seperti *2001: A Space Odyssey*.
+- **Relevansi Profil Pengguna**: Pekerjaan di bidang hiburan menunjukkan kecenderungan terhadap film dengan kompleksitas naratif dan nilai artistik tinggi, yang sesuai dengan film-film dalam daftar seperti *Trainspotting* atau *Ladybird Ladybird*.
+- **Skor Kemiripan Maksimum**: Skor 1.0000 menunjukkan bahwa film yang direkomendasikan memiliki profil fitur (genre, tema, atau preferensi pengguna serupa) yang sangat cocok dengan film yang disukai oleh pengguna.
+
+Rekomendasi ini sangat cocok untuk pengguna dengan ketertarikan pada film-film dengan kedalaman tema, drama intens, dan eksplorasi psikologis atau sosial.
+
+
+
+### Kelebihan
+- Tidak Membutuhkan Data Rating yang Banyak:
+  - Cukup bekerja dengan beberapa film favorit pengguna
+  - Cocok untuk cold-start problem ketika belum banyak data rating
+
+- Transparan dan Dapat Dijelaskan:
+  - Rekomendasi berdasarkan kesamaan fitur yang jelas (genre, tahun rilis)
+  - Mudah menjelaskan mengapa suatu item direkomendasikan
+
+- Personalized:
+  - Rekomendasi spesifik berdasarkan preferensi individu
+  - Tidak terpengaruh oleh popularitas item
+
+- Efisien secara Komputasi:
+  - Penggunaan float32 mengurangi beban memori
+  - Perhitungan similarity hanya dilakukan untuk film yang disukai
+
+### Kekurangan:
+- Terbatas pada Fitur yang Ada:
+  - Hanya mempertimbangkan genre dan tahun rilis
+  - Tidak menangkap aspek lain seperti aktor, sutradara, atau tema
+
+- Over-Specialization:
+  - Cenderung merekomendasikan item yang sangat mirip
+  - Kurang mampu memberikan rekomendasi yang beragam atau mengejutkan
+
+- Ketergantungan pada Data Demografik:
+  - Mengasumsikan pengguna dengan gender dan occupation yang sama memiliki preferensi serupa
+  - Tidak menangkap preferensi individual yang unik
+
+- Scalability:
+  - Perhitungan similarity bisa menjadi mahal secara komputasi ketika katalog film sangat besar
+  - Membutuhkan pembaruan model ketika fitur film berubah
+ 
+## 2. Collaborative Filtering
+
+Collaborative Filtering atau lebih spesifiknya User-Based Collaborative Filtering (UBCF) adalah salah satu teknik recommender system yang merekomendasikan item berdasarkan preferensi pengguna lain yang memiliki kesamaan (neighbors). Namun, data interaksi pengguna-item biasanya sangat sparse (matriks besar dengan banyak nilai kosong), sehingga diperlukan optimasi untuk meningkatkan efisiensi dan akurasi. Sistem ini mencari pengguna (users) yang memiliki pola preferensi serupa dengan target user dan rekomendasi dibuat berdasarkan item yang disukai oleh neighbor users (pengguna mirip) tetapi belum dilihat/dibeli oleh target user.
+
+### Cara kerja
+
+```mermaid
+flowchart TD
+    A[Start] --> B[Load Dataset]
+    B --> C[Create Composite User ID]
+    C --> D[Build User-Item Pivot Table]
+    D --> E[Convert to Sparse Matrix]
+    E --> F[Compute User Similarities]
+    F --> G[Calculate Predicted Ratings]
+    G --> H[Normalize Scores]
+    H --> I[Convert to DataFrame]
+    I --> J[Output Recommendations]
+    J --> K[End]
+```
+
+### Top N Recomendation
+
+**Informasi Pengguna**
+- **User ID**: 49_1_20  
+- **Usia**: 49 tahun  
+- **Jenis Kelamin**: Laki-laki (M)  
+- **Pekerjaan**: Penulis (*writer*)
+
+---
+
+**Top 10 Rekomendasi Film**
+
+| No. | Judul Film                  | Skor CF (Collaborative Filtering) |
+|-----|-----------------------------|-----------------------------------|
+| 1   | Star Wars                   | 2.7812                            |
+| 2   | Fargo                       | 2.5721                            |
+| 3   | Titanic                     | 2.4284                            |
+| 4   | Return of the Jedi          | 2.3147                            |
+| 5   | Godfather                   | 2.2757                            |
+| 6   | Raiders of the Lost Ark     | 2.0955                            |
+| 7   | Toy Story                   | 2.0675                            |
+| 8   | Silence of the Lambs        | 2.0011                            |
+| 9   | Jerry Maguire               | 1.9733                            |
+| 10  | Pulp Fiction                | 1.9311                            |
+
+---
+
+**Interpretasi**
+
+Rekomendasi di atas dihasilkan menggunakan metode *Collaborative Filtering (CF)*, yang mengandalkan kesamaan pola preferensi antar pengguna. Berikut beberapa insight:
+
+- **Dominasi Film Klasik & Ikonik**: Film seperti *Star Wars*, *Godfather*, *Pulp Fiction*, dan *Titanic* adalah karya besar yang dikenal memiliki nilai sinematik tinggi. Hal ini cocok dengan profil pengguna yang bekerja sebagai *penulis*, yang mungkin menghargai narasi yang kuat dan pengembangan karakter.
+  
+- **Genre Beragam namun Berkualitas**:
+  - *Star Wars* & *Return of the Jedi*: Sci-fi / petualangan epik
+  - *Fargo* & *Silence of the Lambs*: Thriller psikologis dan misteri
+  - *Toy Story*: Animasi dengan narasi menyentuh dan orisinal
+  - *Jerry Maguire*: Drama romantis dengan pengembangan karakter
+
+- **Skor CF Tinggi**: Skor tertinggi pada *Star Wars* (2.7812) menunjukkan kecocokan yang sangat kuat dengan preferensi pengguna sejenis, artinya kemungkinan besar pengguna ini akan sangat menyukai film tersebut.
+
+Rekomendasi ini ideal untuk pengguna yang mencari film dengan kualitas cerita yang tinggi, kompleksitas karakter, dan nilai sinematik mendalam — karakteristik yang sering dicari oleh seorang penulis.
+
+
+### Kelebihan
+- Demographic-aware:
+  - Mengkombinasikan age, gender, dan occupation untuk identifikasi user
+  - Contoh: "25_1_5" = usia 25, gender male (1), occupation engineer (5)
+ 
+- Memorry Efficient:
+  - Penggunaan sparse matrix mengurangi memory usage ~70%
+
+- Cold Start Mitigation:
+  - Dapat memberikan rekomendasi walau untuk user baru selama ada user dengan demografi serupa
+
+### Kekurangan
+- Scalability Limit:
+  - Kompleksitas O(n²) untuk similarity matrix (n = jumlah user)
+  - Contoh: Untuk 100k user → 10^10 operasi
+
+- Demographic Bias:
+  - Asumsi bahwa user dengan demografi sama memiliki preferensi serupa
+  - Tidak menangkap preferensi individual
+ 
+- Data Sparsity Issue
+  - Data sparsity issue adalah masalah yang muncul ketika matriks data (biasanya dalam sistem rekomendasi) memiliki banyak nilai kosong (0 atau null) dibandingkan dengan nilai yang terisi.
+
+ ## 3. Model Sistem Rekomendasi Hybrid
+  Model ini menggabungkan Content-Based Filtering (CBF) dan Collaborative Filtering (CF) untuk mengatasi kelemahan masing-masing pendekatan:
+- **Komponen Utama**:
+- Content-Based Filtering (CBF)
+  - Merekomendasikan item berdasarkan kesamaan fitur konten (genre, tahun rilis).
+  - Cocok untuk cold start problem (item/user baru).
+
+- Collaborative Filtering (CF)
+  - Merekomendasikan item berdasarkan perilaku user lain yang mirip.
+  - Efektif jika ada data rating yang cukup.
+
+### Cara Kerja
+```mermaid
+flowchart TD
+    A[Start] --> B[Input: User Demografi (age, gender, occupation)]
+    B --> C[Buat User_ID]
+    C --> D{Cek User di Data CF?}
+    D -->|Ya| E[Ambil Skor CF]
+    D -->|Tidak| F[Skor CF = 0]
+    E & F --> G[Ambil Skor CBF]
+    G --> H[Gabungkan Skor: Hybrid = α*CBF + (1-α)*CF]
+    H --> I[Filter Item yang Ada di Kedua Model]
+    I --> J[Urutkan Berdasarkan Skor Hybrid]
+    J --> K[Output Rekomendasi]
+    K --> L[End]
+```
+
+### Top N Recommendation
+**Informasi Pengguna**
+- **User ID**: 49_M_entertainment  
+- **Usia**: 49 tahun  
+- **Jenis Kelamin**: Laki-laki (M)  
+- **Pekerjaan**: Sektor Hiburan (*entertainment*)
+
+---
+
+**Top 10 Rekomendasi Film**
+
+| No. | Judul Film                                 | Hybrid Score |
+|-----|--------------------------------------------|--------------|
+| 1   | Day the Earth Stood Still                  | 0.5000       |
+| 2   | 2001: A Space Odyssey                      | 0.5000       |
+| 3   | Chinatown                                  | 0.5000       |
+| 4   | Palmetto                                   | 0.5000       |
+| 5   | Soul Food                                  | 0.5000       |
+| 6   | Sophie's Choice                            | 0.5000       |
+| 7   | Somebody to Love                           | 0.5000       |
+| 8   | Some Mother's Son                          | 0.5000       |
+| 9   | Some Folks Call It a Sling Blade           | 0.5000       |
+| 10  | True Crime                                 | 0.5000       |
+
+---
+
+**Interpretasi**
+
+Rekomendasi ini dihasilkan menggunakan **Hybrid Recommendation System**, yang menggabungkan kekuatan **Collaborative Filtering** (berbasis pengguna) dan **Content-Based Filtering** (berbasis fitur film). Beberapa hal penting yang dapat disimpulkan:
+
+- **Skor Identik (0.5000)** menunjukkan bahwa semua film ini memiliki relevansi yang sama dalam sistem, yang bisa berarti:
+  - Pengguna memiliki preferensi yang seragam/terfokus.
+  - Sistem hybrid mengidentifikasi kesamaan tinggi dengan pengguna sejenis dan konten film yang mirip.
+
+- **Campuran Genre & Tema Kuat**:
+  - *Sci-fi klasik & filosofis*: *2001: A Space Odyssey*, *Day the Earth Stood Still*
+  - *Drama kuat & emosional*: *Sophie's Choice*, *Some Mother's Son*
+  - *Kriminal & thriller*: *Chinatown*, *True Crime*, *Palmetto*
+  - *Kisah sosial & keluarga*: *Soul Food*, *Some Folks Call It a Sling Blade*
+
+- **Relevan dengan Profesi di Dunia Hiburan**:  
+  Sebagai pekerja hiburan, pengguna cenderung menyukai film dengan narasi yang kuat, karakter multidimensi, dan produksi sinematik yang menonjol — kesamaan yang terlihat jelas pada film-film di atas.
+
+Rekomendasi ini dapat membantu pengguna menemukan film yang tidak hanya menghibur, tetapi juga menawarkan kekuatan emosional dan artistik yang mendalam.
+
+
+### Kelebihan 
+- Mengatasi Cold Start Problem
+  - Jika data CF tidak ada (user baru), sistem tetap bekerja dengan CBF.
+
+- Rekomendasi Lebih Beragam
+  - Kombinasi CBF (konten) + CF (perilaku user) mengurangi bias "popularitas".
+
+- Fleksibilitas Bobot (α)
+  - Nilai α bisa disesuaikan:
+  - α = 1 → Murni CBF (baik untuk item baru).
+  - α = 0 → Murni CF (baik jika data rating melimpah).
+
+- Optimasi Komputasi
+  - Hanya menghitung skor untuk item yang ada di kedua model (common_movies).
+
+### Kekurangan 
+- Tuning Bobot α
+  - Nilai α = 0.5 belum tentu optimal (perlu eksperimen/validasi).
+
+- Ketergantungan pada Kualitas Data
+  - Jika data CBF (genre/tahun) tidak akurat atau CF sangat sparse, hasil hybrid bisa buruk.
+
+- Kompleksitas Interpretasi
+  - Sulit menjelaskan ke user mengapa suatu item direkomendasikan (apakah karena konten atau perilaku user lain?).
+
+- Overhead Komputasi
+  - Menjalankan dua model sekaligus (CBF + CF) lebih berat daripada pendekatan tunggal.
+
+
 
 # Evaluation
 
@@ -541,6 +829,7 @@ Rubrik/Kriteria Tambahan (Opsional):
 
 Menjelaskan proses data preparation yang dilakukan
 Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+
 Modeling
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
@@ -548,6 +837,7 @@ Rubrik/Kriteria Tambahan (Opsional):
 
 Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
 Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+
 Evaluation
 Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
 
