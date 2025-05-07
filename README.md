@@ -747,9 +747,14 @@ Rekomendasi ini dapat membantu pengguna menemukan film yang tidak hanya menghibu
 
 # Reference
 
-[^1] MESIN REKOMENDASI FILM MENGGUNAKAN METODE KEMIRIPAN GENRE BERBASIS COLLABORATIVE FILTERING. (n.d.).
+[^1] Wahyudi, I. S.(2017) MESIN REKOMENDASI FILM MENGGUNAKAN METODE KEMIRIPAN GENRE BERBASIS COLLABORATIVE FILTERING. Tesis, ITS Surabaya.
+
 [^2] Zaman, S., Teknik, D., Uin, I., Malik, M., & Malang, I. (n.d.). Rencana Strategis Komunikasi Institusi: Membangun Kualitas dan Relevansi Konten untuk Masa Depan Ringkasan Eksekutif A. Pendahuluan.
-[^3] 225027205_Bab 2. (n.d.).
+
+[^3] Wardani, D (2022). MENGATASI COLD-START PROBLEM MENGGUNAKAN ARTIFICIAL NEURAL NETWORK UNTUK SISTEM REKOMENDASI PADA GAME DESTINASI WISATA KOTA BARU. Skripsi, UIN Malang.
+
 [^4] Iswahyuningtyas, C. E., & Hidayat, M. F. (2021). Strategies and Challenges in Conventional and Digital Film Distribution and Exhibition in Indonesia. Jurnal Komunikasi, 13(1), 133. https://doi.org/10.24912/jk.v13i1.10033
-[^5] 17650056. (n.d.).
+
+[^5] Demir et al., 2020. The role of E-srvice quality in shaping online meeting platforms: a case study from higher education sector. BAB 2.
+
 [^6] Velamentosa, D., Zuliarso, E., & Raya Tri Lomba Juang, J. (2025). SISTEM REKOMENDASI FILM MENGGUNAKAN METODE CONTENT-BASED FILTERING. In Jurnal Mahasiswa Teknik Informatika) (Vol. 9, Issue 2).
