@@ -106,6 +106,8 @@ Menggabungkan kedua metode di atas dengan bobot tertentu agar sistem tetap akura
 - **Film**: 1.682
 - **Data Demografis**: Usia, jenis kelamin, pekerjaan, kode pos
 - **Lisensi**: Untuk penelitian non-komersial dengan atribusi wajib
+- **Dimensi** : 100.000 baris dan 32 kolom
+- **Tipe Data** : datetime64[ns](1), float64(1), int64(23), object(7)
 
 **Tautan Unduhan**:
 - [Kaggle](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset)
