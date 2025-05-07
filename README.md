@@ -216,6 +216,169 @@ flowchart TD
 
 # Data Understanding
 
+## Gambaran Umum
+Dataset MovieLens 100K merupakan kumpulan data rating film yang dikumpulkan oleh GroupLens Research Project dari University of Minnesota. Dataset ini berisi 100.000 rating (skala 1-5) dari 943 pengguna terhadap 1.682 film. Setiap pengguna memberikan setidaknya 20 rating, dan data dilengkapi dengan informasi demografis seperti usia, jenis kelamin, pekerjaan, dan kode pos. Data dikumpulkan melalui platform MovieLens antara September 1997 hingga April 1998 dan telah melalui proses pembersihan untuk memastikan kelengkapan data. Dataset ini umum digunakan untuk penelitian sistem rekomendasi, analisis preferensi pengguna, dan collaborative filtering.
+
+- **Sumber**: GroupLens Research Project, University of Minnesota
+- **Periode Pengumpulan**: 19 September 1997 - 22 April 1998
+- **Total Rating**: 100.000 (skala 1-5)
+- **Pengguna**: 943 (masing-masing memberi ≥20 rating)
+- **Film**: 1.682
+- **Data Demografis**: Usia, jenis kelamin, pekerjaan, kode pos
+- **Lisensi**: Untuk penelitian non-komersial dengan atribusi wajib
+
+**Tautan Unduhan**:
+- [Kaggle](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset)
+- [Situs Resmi GroupLens](https://grouplens.org/datasets/movielens/)
+
+## Struktur File
+
+### File Data Utama
+1. **u.data** (Data rating utama)
+   - Format: `user_id | item_id | rating | timestamp`
+   - Pemisah: Tab
+   - Timestamp: Detik Unix sejak 1/1/1970 UTC
+
+2. **u.item** (Metadata film)
+   - Berisi 24 kolom:
+     ```
+     movie_id | judul_film | tanggal_rilis | tanggal_rilis_video | 
+     link_IMDb | 19_flag_genre (0/1)
+     ```
+   - Genre meliputi: Action, Adventure, Animation, dll.
+
+3. **u.user** (Data demografi pengguna)
+   - Format: `user_id | usia | jenis_kelamin | pekerjaan | kode_pos`
+
+### File Pendukung
+- **u.genre**: Daftar 19 genre film
+- **u.occupation**: Daftar 21 jenis pekerjaan pengguna
+- **u.info**: Ringkasan jumlah (pengguna, film, rating)
+
+### Data Validasi
+- **Validasi Silang 5-fold**:
+  - u1.base/u1.test sampai u5.base/u5.test
+  - Pembagian 80% data latih / 20% data uji
+- **Data Uji 10-rating**:
+  - ua.base/ua.test dan ub.base/ub.test
+
+## Detail Variabel
+
+### Data Rating
+| Kolom | Tipe | Deskripsi |
+|--------|------|-------------|
+| user_id | integer | ID unik pengguna (1-943) |
+| item_id | integer | ID unik film (1-1682) |
+| rating | integer | Nilai rating (1-5) |
+| timestamp | integer | Timestamp format Unix |
+
+### Metadata Film
+| Kolom | Tipe | Deskripsi |
+|-------|------|-------------|
+| movie_id | integer | ID unik film |
+| title | string | Judul film + tahun rilis |
+| release_date | string | Format DD-MMM-YYYY |
+| video_release_date | string | Umumnya kosong |
+| IMDb_URL | string | Tautan ke IMDb |
+| [19 genre] | binary | 1 jika film termasuk genre tersebut |
+
+### Data Demografi Pengguna
+| Kolom | Tipe | Deskripsi |
+|-------|------|-------------|
+| user_id | integer | ID unik pengguna |
+| age | integer | Usia pengguna |
+| gender | string | 'M' atau 'F' |
+| occupation | string | 21 kategori pekerjaan |
+| zip_code | string | Kode pos AS |
+
+### Keterangan genre
+unknown|0
+Action|1
+Adventure|2
+Animation|3
+Children's|4
+Comedy|5
+Crime|6
+Documentary|7
+Drama|8
+Fantasy|9
+Film-Noir|10
+Horror|11
+Musical|12
+Mystery|13
+Romance|14
+Sci-Fi|15
+Thriller|16
+War|17
+Western|18
+
+## Exploratory Data Analysis
+
+### Rata - rata per bulan
+
+![image](https://github.com/user-attachments/assets/90f5fdbb-4a17-40a9-b7d2-18ae39d574ae)
+
+Pada kolom rating, penurunan nilai rata-rata dari waktu ke waktu dapat mengindikasikan adanya penurunan kepuasan pengguna terhadap konten film yang ditawarkan. Hal ini mungkin disebabkan oleh perubahan kualitas film, ekspektasi pengguna yang semakin tinggi, atau faktor eksternal seperti banyaknya kompetitor di pasar streaming. Sementara itu, fluktuasi pada kolom age menunjukkan variasi usia rata-rata pengguna dari bulan ke bulan, yang bisa mencerminkan perubahan demografi penonton. Misalnya, peningkatan usia rata-rata mungkin terjadi ketika platform lebih banyak menayangkan film-film klasik yang menarik minat penonton dewasa, sedangkan penurunan usia rata-rata dapat terkait dengan rilis film-film animasi atau genre young adult yang populer di kalangan penonton muda.
+
+Untuk kolom video_release_date, pola yang terlihat mungkin berkaitan dengan musim rilis film. Beberapa bulan tertentu, seperti akhir tahun (November-Desember), sering kali menjadi periode rilis film-film besar, sehingga memengaruhi rata-rata tanggal rilis video. Sebaliknya, bulan-bulan dengan aktivitas rilis yang lebih rendah, seperti awal tahun, dapat menunjukkan penurunan dalam nilai rata-rata. Interpretasi ini memperkuat pentingnya analisis lebih lanjut untuk memastikan apakah pola tersebut bersifat musiman atau dipengaruhi oleh faktor lain seperti strategi distribusi konten oleh platform.
+
+### Rata rata genre per bulan
+
+![image](https://github.com/user-attachments/assets/41163c18-d354-4e3d-8b8d-97032ceda7ca)
+
+### 🎬 Genre dengan Fluktuasi Tertinggi
+1. **Horror (genre_11)**: 
+   - Mencapai puncak di Oktober (+15-20% dari rata-rata) 
+   - Konsisten dengan tradisi Halloween
+   - *Rekomendasi*: Program marathon film horor di bulan Oktober
+
+2. **Romance (genre_14)**:
+   - Lonjakan 12-15% di Februari (Valentine)
+   - Penurunan signifikan di April
+   - *Peluang*: Bundle romance-comedy untuk "Palentine's Day"
+
+3. **Children's (genre_4)**:
+   - Puncak di Desember (+18%) 
+   - Tren turun drastis di Januari-Februari
+   - *Insight*: Orang tua lebih aktif menonton film anak selama liburan sekolah
+
+### 📊 Genre Paling Stabil
+1. **Drama (genre_8)**:
+   - Persentase konstan 22-25% tiap bulan
+   - *Implikasi*: Genre "penopang" platform sepanjang tahun
+
+2. **Documentary (genre_7)**:
+   - Fluktuasi <3% 
+   - *Pola*: Penonton setia tanpa musiman jelas
+
+## Analisis Kompetitif Genre
+
+### 🔥 Genre yang Saling Menggantikan
+| Bulan | Genre Naik | Genre Turun | Rasio |
+|-------|------------|-------------|-------|
+| Nov-Dec | Fantasy (+7%) | Crime (-5%) | 1.4:1 |
+| Feb-Mar | Sci-Fi (+9%) | Western (-6%) | 1.5:1 |
+
+*Interpretasi*: Penonton cenderung beralih dari genre realistik ke spekulatif di musim dingin
+
+
+### Distribusi 
+
+#### Numerikal
+
+![image](https://github.com/user-attachments/assets/95cddb17-759e-44a3-8242-c1eb3be2e708)
+
+Distribusi user_id dan movie_id menunjukkan pola yang mirip dengan Prinsip Pareto, di mana sebagian kecil pengguna (dengan user_id rendah) dan film (dengan movie_id rendah) mendominasi aktivitas platform. Hal ini mengindikasikan bahwa platform mungkin bergantung pada power users dan konten populer lama, sementara pengguna baru atau konten baru kurang mendapat perhatian. Insight ini menyarankan perlunya strategi untuk meningkatkan engagement pengguna baru, seperti personalisasi rekomendasi atau program loyalitas.
+
+Distribusi rating menunjukkan bahwa pengguna cenderung memberikan nilai 3.0–4.0, dengan sangat sedikit rating ekstrem (1.0 atau 5.0). Ini bisa mencerminkan bias psikologis (enggan memberi nilai terlalu jelek/sempurna) atau kurangnya fitur umpan balik yang mendorong penilaian lebih beragam. Platform bisa mempertimbangkan skala rating yang lebih dinamis (misalnya, dengan ulasan berbasis emoji) atau memberikan insentif untuk memberikan rating lebih jujur.
+
+#### Kategorikal
+
+![image](https://github.com/user-attachments/assets/ead33be4-edf9-4f46-9369-fe03b0660233)
+
+
+
+
 # Data Preparation
 
 # Modeling
