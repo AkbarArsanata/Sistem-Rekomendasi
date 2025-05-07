@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/ea77fa61-1aae-48a8-9e77-234c29e34a1a)# Laporan Proyek Machine Learning -Ibrahim Akbar Arsanata
+# Laporan Proyek Machine Learning -Ibrahim Akbar Arsanata
 
 # Project Overview
 
