@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning -Ibrahim Akbar Arsanata
+![image](https://github.com/user-attachments/assets/ea77fa61-1aae-48a8-9e77-234c29e34a1a)# Laporan Proyek Machine Learning -Ibrahim Akbar Arsanata
 
 # Project Overview
 
@@ -292,25 +292,28 @@ Dataset MovieLens 100K merupakan kumpulan data rating film yang dikumpulkan oleh
 | zip_code | string | Kode pos AS |
 
 ### Keterangan genre
-unknown|0
-Action|1
-Adventure|2
-Animation|3
-Children's|4
-Comedy|5
-Crime|6
-Documentary|7
-Drama|8
-Fantasy|9
-Film-Noir|10
-Horror|11
-Musical|12
-Mystery|13
-Romance|14
-Sci-Fi|15
-Thriller|16
-War|17
-Western|18
+| Genre | Indeks |
+|-------|--------|
+| unknown | 0 |
+| Action | 1 |
+| Adventure | 2 |
+| Animation | 3 |
+| Children's | 4 |
+| Comedy | 5 |
+| Crime | 6 |
+| Documentary | 7 |
+| Drama | 8 |
+| Fantasy | 9 |
+| Film-Noir | 10 |
+| Horror | 11 |
+| Musical | 12 |
+| Mystery | 13 |
+| Romance | 14 |
+| Sci-Fi | 15 |
+| Thriller | 16 |
+| War | 17 |
+| Western | 18 |
+
 
 ## Exploratory Data Analysis
 
@@ -318,9 +321,9 @@ Western|18
 
 ![image](https://github.com/user-attachments/assets/90f5fdbb-4a17-40a9-b7d2-18ae39d574ae)
 
-Pada kolom rating, penurunan nilai rata-rata dari waktu ke waktu dapat mengindikasikan adanya penurunan kepuasan pengguna terhadap konten film yang ditawarkan. Hal ini mungkin disebabkan oleh perubahan kualitas film, ekspektasi pengguna yang semakin tinggi, atau faktor eksternal seperti banyaknya kompetitor di pasar streaming. Sementara itu, fluktuasi pada kolom age menunjukkan variasi usia rata-rata pengguna dari bulan ke bulan, yang bisa mencerminkan perubahan demografi penonton. Misalnya, peningkatan usia rata-rata mungkin terjadi ketika platform lebih banyak menayangkan film-film klasik yang menarik minat penonton dewasa, sedangkan penurunan usia rata-rata dapat terkait dengan rilis film-film animasi atau genre young adult yang populer di kalangan penonton muda.
+    Pada kolom rating, penurunan nilai rata-rata dari waktu ke waktu dapat mengindikasikan adanya penurunan kepuasan pengguna terhadap konten film yang ditawarkan. Hal ini mungkin disebabkan oleh perubahan kualitas film, ekspektasi pengguna yang semakin tinggi, atau faktor eksternal seperti banyaknya kompetitor di pasar streaming. Sementara itu, fluktuasi pada kolom age menunjukkan variasi usia rata-rata pengguna dari bulan ke bulan, yang bisa mencerminkan perubahan demografi penonton. Misalnya, peningkatan usia rata-rata mungkin terjadi ketika platform lebih banyak menayangkan film-film klasik yang menarik minat penonton dewasa, sedangkan penurunan usia rata-rata dapat terkait dengan rilis film-film animasi atau genre young adult yang populer di kalangan penonton muda.
 
-Untuk kolom video_release_date, pola yang terlihat mungkin berkaitan dengan musim rilis film. Beberapa bulan tertentu, seperti akhir tahun (November-Desember), sering kali menjadi periode rilis film-film besar, sehingga memengaruhi rata-rata tanggal rilis video. Sebaliknya, bulan-bulan dengan aktivitas rilis yang lebih rendah, seperti awal tahun, dapat menunjukkan penurunan dalam nilai rata-rata. Interpretasi ini memperkuat pentingnya analisis lebih lanjut untuk memastikan apakah pola tersebut bersifat musiman atau dipengaruhi oleh faktor lain seperti strategi distribusi konten oleh platform.
+    Untuk kolom video_release_date, pola yang terlihat mungkin berkaitan dengan musim rilis film. Beberapa bulan tertentu, seperti akhir tahun (November-Desember), sering kali menjadi periode rilis film-film besar, sehingga memengaruhi rata-rata tanggal rilis video. Sebaliknya, bulan-bulan dengan aktivitas rilis yang lebih rendah, seperti awal tahun, dapat menunjukkan penurunan dalam nilai rata-rata. Interpretasi ini memperkuat pentingnya analisis lebih lanjut untuk memastikan apakah pola tersebut bersifat musiman atau dipengaruhi oleh faktor lain seperti strategi distribusi konten oleh platform.
 
 ### Rata rata genre per bulan
 
@@ -376,10 +379,105 @@ Distribusi rating menunjukkan bahwa pengguna cenderung memberikan nilai 3.0–4.
 
 ![image](https://github.com/user-attachments/assets/ead33be4-edf9-4f46-9369-fe03b0660233)
 
+Dapat dilihat pada visualisasi diatas bahwa dominasi penonton laki-laki dalam dataset ini bisa mencerminkan bias platform atau preferensi genre. Film-film sci-fi seperti Star Wars dan Return of the Jedi yang mendominasi mungkin lebih menarik bagi audiens pria, atau bisa juga menunjukkan bahwa platform ini populer di kalangan tertentu, seperti pelajar (22%) dan profesional di bidang teknologi (engineer, programmer). Fakta bahwa Fargo—film dengan nuansa kritikus—masuk dalam 5 besar bersama komedi seperti Liar Liar menunjukkan keberagaman selera, meski tetap didominasi oleh film-film kultus.
+
+Yang menarik, banyak film tercatat rilis pada 1 Januari (1995, 1994, dll.), yang kemungkinan besar adalah placeholder karena ketidaklengkapan data. Hal ini perlu diperbaiki agar analisis temporal seperti tren rilis film tidak bias. Selain itu, tingginya partisipasi pelajar dan pendidik bisa menjadi petunjuk bahwa film digunakan untuk hiburan sekaligus edukasi—misalnya, film Contact yang bertema sains mungkin dipilih untuk tujuan pembelajaran.
+
+![image](https://github.com/user-attachments/assets/8d856bac-d9c3-4d03-ba21-8c7202858de4)
+
+Laki-laki mendominasi hampir semua kategori pekerjaan, terutama di bidang teknis seperti engineer dan programmer, serta di kalangan student. Hal ini mencerminkan ketidakseimbangan gender dalam partisipasi platform/data atau bias industri (misalnya, lebih banyak pria di STEM).
+
+Perempuan (F) memiliki representasi yang lebih rendah, kecuali di pekerjaan seperti librarian dan educator, di mana perbedaannya tidak terlalu mencolok.
+
+![image](https://github.com/user-attachments/assets/1a59e347-bd30-425e-a797-38370334fad1)
+
+Distribusi genre film dalam dataset ini mengungkapkan pola menarik yang selaras dengan temuan sebelumnya mengenai dominasi laki-laki di kalangan pengguna platform. Drama (genre_8) dan komedi (genre_5) muncul sebagai genre paling populer, mencerminkan preferensi umum masyarakat akan hiburan yang mudah dinikmati dan bersifat universal. Namun, genre seperti sci-fi (genre_15) dan action (genre_1) yang cenderung lebih digemari oleh audiens laki-laki—sejalan dengan dominasi mereka di bidang STEM—juga menempati posisi menonjol.
+
+Fakta bahwa genre "feminin" seperti romance (genre_14) atau musical (genre_12) tidak mendominasi bisa jadi merupakan cerminan dari bias platform yang didominasi oleh pengguna pria, atau bahkan bias industri film itu sendiri. Sementara itu, genre niche seperti film-noir (genre_10) dan western (genre_18) yang minim jumlahnya menunjukkan pergeseran selera pasar atau tantangan produksi.
+
+Keterkaitan antara data pekerjaan dan genre film semakin memperkuat narasi ini. Dominasi pelajar (student) sebagai kelompok terbesar pengguna platform mungkin menjelaskan popularitas genre komedi dan drama, yang sering menjadi pilihan hiburan utama bagi kalangan muda. Namun, minimnya film dokumenter (genre_7) mengindikasikan potensi kurangnya konten edukatif, meskipun platform banyak diakses oleh pelajar dan pendidik.
+
+Kesimpulan: Dataset ini tidak hanya menggambarkan preferensi genre, tetapi juga merefleksikan dinamika gender dan demografik pengguna. Ketidakseimbangan yang terlihat bisa berasal dari bias budaya, bias platform, atau bahkan metode pengumpulan data. Untuk menciptakan ekosistem yang lebih inklusif, perlu ada upaya untuk mempromosikan keberagaman genre dan memastikan representasi yang seimbang bagi semua kelompok pengguna. Analisis lebih lanjut dengan mempertimbangkan variabel seperti usia, lokasi, dan preferensi pribadi akan membantu mengungkap wawasan yang lebih mendalam.
+
+### Box Plot
+![image](https://github.com/user-attachments/assets/8dcd9c9d-5fcc-4817-8d13-de89a7205d7b)
+
+Dapat dilihat pada visualisasi diatas tak sedikit variable memiliki outlier namun pada kasus ini akan kita biarkan karna Outlier dalam data misal usia dan gender dapat menjadi informasi penting seperti penonton berusia 70 tahun di tengah dominasi kelompok usia muda, justru dapat menjadi aset berharga bagi sistem rekomendasi. Kelompok minoritas ini sering kali mewakili segmen nyata dengan preferensi unik—misalnya, pensiunan yang aktif menonton film klasik, drama period, atau dokumenter. Dengan mempertahankan outlier, sistem tidak hanya menjaga diversitas data tetapi juga berpeluang menyajikan rekomendasi yang lebih inklusif dan terpersonalisasi untuk niche audience. Hal ini sejalan dengan prinsip bahwa sistem rekomendasi yang baik harus mampu melayani seluruh spektrum pengguna, termasuk kelompok yang secara statistik jarang muncul. Selain itu, keberadaan outlier dapat membantu mengidentifikasi pola tersembunyi, seperti ketertarikan generasi tua terhadap konten bernostalgia, yang mungkin terlewatkan jika data tersebut dihilangkan. Dengan demikian, mempertahankan outlier—sambil memastikan kualitas data tetap valid—justru akan memperkaya kemampuan sistem dalam memahami keragaman preferensi pengguna.
+
+### Missing Value
+![image](https://github.com/user-attachments/assets/af319147-9d99-497b-9413-456e570a1029)
+
+Dapat dilihat diatas bahwa terlihat banyak sekali missing value pada video_release_date dengan persenatse mendekati 100%, untuk kolom numerik yang lain dapat dilihat bahwa tidak ada indikasi adanya missing value. Untuk kolom kategorik biasanya missing value tidak berisi nan sehingga tidak teridentifikasi. Mari kita identifikasi lebih lanjut pada kolom lainnya di data preparation
 
 
 
-# Data Preparation
+# Data Preparation 
+
+## Missing Value
+
+### Kolom `movies_title`
+Setelah dilakukan inspeksi lebih lanjut, ditemukan bahwa nilai *missing* pada kolom `movies_title` ditulis sebagai `unknown`. Hal ini menyebabkan nilai tersebut tidak terdeteksi saat proses visualisasi. Total terdapat **79 nilai missing** dari **10.000 data**, sehingga dapat dikatakan proporsinya sangat kecil. Oleh karena itu, keputusan terbaik adalah **menghapus baris yang mengandung nilai `unknown` tersebut**.
+
+### Kolom `occupation` (Pekerjaan)
+Ditemukan bahwa nilai *missing* pada kolom ini dituliskan sebagai `none`, dengan total **2.238 entri**. Setelah dianalisis lebih lanjut:
+
+- **Jumlah Signifikan**: 900 entri memiliki nilai `none`, jumlah yang cukup signifikan.
+- **Distribusi Usia**: Usia bervariasi (11–55 tahun) dengan **rata-rata 25 tahun**, menunjukkan ada kemungkinan orang-orang ini memang belum atau tidak bekerja.
+- **Konsistensi Kategori**: `none` muncul bersama kategori lain seperti `student`, `retired`, dan `homemaker`, menunjukkan bahwa `none` memang merupakan kategori valid.
+- **Tidak Ada Indikasi Null**: Nilai ini tidak ditulis sebagai `null`, melainkan sebagai kategori yang jelas.
+
+Maka, **nilai `none` diganti menjadi `unemployment`** untuk memperjelas bahwa ini adalah kategori pekerjaan.
+
+### Kolom `video_release_date`
+Kolom ini memiliki *missing value* mendekati 100% sehingga dianggap tidak informatif. Karena sudah ada kolom `release_date`, maka **kolom ini dihapus** dari dataset.
+
+---
+
+## Feature Selection
+
+Pemilihan fitur berikut digunakan untuk membangun sistem rekomendasi dengan pendekatan:
+- **Collaborative Filtering**
+- **Content-Based Filtering**
+- **Hybrid Recommendation**
+
+| Fitur | Alasan Pemilihan |
+|------|-------------------|
+| `rating` | Mewakili preferensi pengguna secara langsung |
+| `age`, `gender`, `occupation` | Informasi demografis yang memengaruhi selera pengguna |
+| `movie_title`, `release_date` | Identifikasi unik film dan analisis temporal |
+| `genre_0` s/d `genre_18` | Genre penting untuk filtering berbasis konten (dalam format one-hot encoding) |
+
+Kombinasi dari semua fitur ini memungkinkan sistem rekomendasi yang **lebih akurat dan personal**, baik berdasarkan perilaku pengguna maupun konten film itu sendiri.
+
+---
+
+## Ekstrak Tahun Rilis (`release_year`)
+
+Ekstraksi tahun dari kolom `release_date` menjadi kolom `release_year` dilakukan untuk:
+
+- **Analisis Temporal**: Identifikasi preferensi terhadap film klasik atau modern.
+- **Optimasi Model ML**: Format numerik lebih efisien.
+- **Perhitungan Similarity**: Relevan dalam pendekatan content-based filtering.
+- **Visualisasi**: Membantu analisis distribusi film berdasarkan dekade.
+- **Reduksi Redundansi**: Hindari duplikasi karena tahun juga sering tercantum di judul.
+
+---
+
+## Ekstrak Judul Film (`movie_title`)
+
+Menghapus tahun dari `movie_title` penting untuk:
+
+- **Menghindari Duplikasi**: Tahun sudah ada di `release_year`.
+- **Pemrosesan Teks Lebih Mudah**: Bersih untuk kebutuhan NLP atau pencarian.
+- **Tampilan Lebih Bersih**: Mempermudah pembacaan oleh pengguna.
+- **Konsistensi Struktur Data**: Setiap informasi berada di tempat yang sesuai.
+
+Ini merupakan bagian dari upaya menjaga **kebersihan dan efisiensi data** dalam pipeline sistem rekomendasi.
+
+---
+
+> Dengan langkah-langkah persiapan data ini, sistem rekomendasi film menjadi lebih robust, bersih, dan siap digunakan dalam pengembangan model yang akurat dan relevan untuk pengguna.
+
 
 # Modeling
 
