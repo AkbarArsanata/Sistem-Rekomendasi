@@ -1,16 +1,5 @@
 # Laporan Proyek Machine Learning -Ibrahim Akbar Arsanata
 
-### **Keterangan**:
-
-- **$k$**  
-  Jumlah item yang direkomendasikan.
-
-- **$\text{sim}(i, j)$**  
-  Similarity (kemiripan) antara item $i$ dan $j$, dihitung menggunakan *cosine similarity*.
-
-- **$\frac{2}{k(k-1)}$**  
-  Faktor normalisasi untuk rata-rata similarity pasangan item.
-
 # Project Overview
 
 Era digital ditandai dengan **information overload** yang membutuhkan cara penemuan kembali informasi yang efektif. Sistem rekomendasi muncul sebagai solusi untuk memberikan rekomendasi personal kepada pengguna sesuai preferensi mereka di tengah banjirnya informasi digital[^1].
@@ -692,13 +681,13 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 ```
 - **Keterangan**:
   
-  - **\( k \)**  
+  - **$k$**  
     Jumlah item yang direkomendasikan.
   
-  - **\( \text{sim}(i, j) \)**  
-    Similarity (kemiripan) antara item \( i \) dan \( j \), dihitung menggunakan *cosine similarity*.
+  - **$\text{sim}(i, j)$**  
+    Similarity (kemiripan) antara item $i$ dan $j$, dihitung menggunakan *cosine similarity*.
   
-  - **\( \frac{2}{k(k-1)} \)**  
+  - **$\frac{2}{k(k-1)}$**  
     Faktor normalisasi untuk rata-rata similarity pasangan item.
 
 - **Cara Kerja**:  
