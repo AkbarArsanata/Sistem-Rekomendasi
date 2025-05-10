@@ -680,15 +680,17 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 \text{Diversity} = 1 - \frac{2}{k(k-1)} \sum_{i=1}^{k-1} \sum_{j=i+1}^{k} \text{sim}(i, j)
 ```
 - **Keterangan**:
-    ```math
-   -  \( k \)   : Jumlah item yang direkomendasikan.
-    ```
-     ```math
-   - \( \text{sim}(i, j) \) : Similarity (kemiripan) antara item \( i \) dan \( j \), dihitung menggunakan *cosine similarity*.
-    ```
-    ```math
-   - \( \frac{2}{k(k-1)} \) : Normalisasi untuk rata-rata similarity pasangan item.
-    ```
+  
+  - **\( k \)**  
+    Jumlah item yang direkomendasikan.
+  
+  - **\(\text{sim}(i, j)\)**  
+    Similarity (kemiripan) antara item \( i \) dan \( j \), dihitung menggunakan *cosine similarity*.
+  
+  - \[
+    \frac{2}{k(k-1)}
+    \]  
+    Faktor normalisasi untuk rata-rata similarity pasangan item.
 
 - **Cara Kerja**:  
   Mengukur seberapa beragam item dalam satu set rekomendasi. Nilai lebih tinggi menunjukkan lebih banyak variasi genre/konten.
