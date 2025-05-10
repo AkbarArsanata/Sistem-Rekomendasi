@@ -656,14 +656,10 @@ Rekomendasi ini dapat membantu pengguna menemukan film yang tidak hanya menghibu
 - **Formula**:
   
 - **NDCG@k**:
-  $$
-  NDCG@k = \frac{DCG@k}{IDCG@k}
-  $$
+  <span style="color: white;">![NDCG Formula](https://latex.codecogs.com/png.latex?%5Cdpi%7B150%7D%20%5Cbg_black%20%5Ccolor%7Bwhite%7D%20NDCG%40k%20%3D%20%5Cfrac%7BDCG%40k%7D%7BIDCG%40k%7D)</span>
 
 - **DCG@k**:
-  $$
-  DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
-  $$
+  <span style="color: white;">![DCG Formula](https://latex.codecogs.com/png.latex?%5Cdpi%7B150%7D%20%5Cbg_black%20%5Ccolor%7Bwhite%7D%20DCG%40k%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7Bk%7D%20%5Cfrac%7Brel_i%7D%7B%5Clog_2%28i%20%2B%201%29%7D)</span>
 
 - **Cara Kerja**:  
   Mengukur seberapa baik sistem mengurutkan item relevan di posisi atas. Skor 1 menunjukkan urutan sempurna.
