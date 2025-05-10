@@ -676,7 +676,16 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 
 ### **b. Diversity (Keberagaman)**
 - **Formula**:  
-  \(Diversity = 1 - \text{Rata-rata Similarity Cosine antar Item Direkomendasikan}\)
+```math
+\text{Diversity} = 1 - \frac{2}{k(k-1)} \sum_{i=1}^{k-1} \sum_{j=i+1}^{k} \text{sim}(i, j)
+```
+- **Keterangan**:
+  - ```math
+    \( k \)
+    ```
+    : Jumlah item yang direkomendasikan.
+  - \( \text{sim}(i, j) \): Similarity (kemiripan) antara item \( i \) dan \( j \), dihitung menggunakan *cosine similarity*.
+  - \( \frac{2}{k(k-1)} \): Normalisasi untuk rata-rata similarity pasangan item.
 
 - **Cara Kerja**:  
   Mengukur seberapa beragam item dalam satu set rekomendasi. Nilai lebih tinggi menunjukkan lebih banyak variasi genre/konten.
@@ -688,14 +697,18 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 
 ### **c. Novelty (Kebaruan)**
 - **Formula**:  
-  \(Novelty = -\sum \log_2(Popularitas\_Item)\)  
-  (Popularitas item dihitung dari frekuensi kemunculan di data pelatihan)
+```math
+\text{Novelty} = -\sum_{i \in \text{Items}} \log_2(p_i)
+```
+  - **Keterangan**:
+    - \( p_i \): Popularitas item ke-\(i\) (frekuensi kemunculan di data pelatihan, dinormalisasi sehingga \( \sum p_i = 1 \)).
+    - Tanda negatif (\(-\)) digunakan agar nilai novelty meningkat untuk item yang kurang populer.
 
-- **Cara Kerja**:  
-  Mengukur seberapa unik atau "jarang terlihat" item yang direkomendasikan. Nilai tinggi berarti lebih kebaruan.
+  - **Cara Kerja**:  
+    Mengukur seberapa unik atau "jarang terlihat" item yang direkomendasikan. Nilai tinggi berarti lebih kebaruan.
 
-- **Alasan Penggunaan**:  
-  Menghindari saran film yang terlalu umum atau sudah diketahui semua orang.
+  - **Alasan Penggunaan**:  
+    Menghindari saran film yang terlalu umum atau sudah diketahui semua orang.
 
 ---
 
