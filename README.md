@@ -137,13 +137,6 @@ Menggabungkan kedua metode di atas dengan bobot tertentu agar sistem tetap akura
 - **u.occupation**: Daftar 21 jenis pekerjaan pengguna
 - **u.info**: Ringkasan jumlah (pengguna, film, rating)
 
-### Data Validasi
-- **Validasi Silang 5-fold**:
-  - u1.base/u1.test sampai u5.base/u5.test
-  - Pembagian 80% data latih / 20% data uji
-- **Data Uji 10-rating**:
-  - ua.base/ua.test dan ub.base/ub.test
-
 ## Detail Variabel
 
 ### Data Rating
@@ -660,10 +653,12 @@ Rekomendasi ini dapat membantu pengguna menemukan film yang tidak hanya menghibu
 ## **1. Metrik Evaluasi yang Digunakan**
 
 ### **a. NDCG@10 (Normalized Discounted Cumulative Gain)**
-- **Formula**:  
-  ![NDCG Formula](https://latex.codecogs.com/png.latex?NDCG@k%20=%20\frac{DCG@k}{IDCG@k})  
-  - \(DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i+1)}\)  
-  - \(IDCG@k\) adalah nilai ideal DCG jika item relevan diurutkan sempurna.
+- **Formula**:
+  
+  ![NDCG Formula](https://latex.codecogs.com/png.latex?NDCG%40k%20%3D%20%5Cfrac%7BDCG%40k%7D%7BIDCG%40k%7D)
+
+  - **DCG@k** (Discounted Cumulative Gain):  
+    ![DCG Formula](https://latex.codecogs.com/png.latex?DCG%40k%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7Bk%7D%20%5Cfrac%7Brel_i%7D%7B%5Clog_2%28i%20%2B%201%29%7D)
 
 - **Cara Kerja**:  
   Mengukur seberapa baik sistem mengurutkan item relevan di posisi atas. Skor 1 menunjukkan urutan sempurna.
