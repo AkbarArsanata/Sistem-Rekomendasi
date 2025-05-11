@@ -68,17 +68,18 @@ Contohnya: Pengguna hanya direkomendasikan film horror karena sebelumnya menyuka
 
 ## **Goals**
 
-### **Jawaban untuk Masalah 1: Mengatasi Cold Start**  
-Menggunakan pendekatan hybrid yang mengombinasikan Content-Based Filtering (CBF) dan Collaborative Filtering (CF), sehingga pengguna atau film baru tetap bisa direkomendasikan dengan relevan.
+### **Goal 1: Meningkatkan Relevansi Rekomendasi untuk Pengguna/Film Baru**  
+Memastikan pengguna baru atau film yang belum memiliki riwayat interaksi tetap menerima rekomendasi yang relevan, sehingga meningkatkan kepuasan dan retensi pengguna.  
 
-### **Jawaban untuk Masalah 2: Mengurangi Bias Popularitas**  
-Memasukkan mekanisme diversifikasi rekomendasi agar film niche dan populer dapat muncul seimbang dalam hasil rekomendasi.
+### **Goal 2: Meningkatkan Diversitas Rekomendasi**  
+Memastikan rekomendasi tidak didominasi film populer dengan menyertakan film niche/berkualitas, sehingga pengguna terpapar pilihan yang lebih beragam.  
 
-### **Jawaban untuk Masalah 3: Mengurangi Ketergantungan pada Data Demografik**  
-Mengutamakan data perilaku dan konten film dalam perhitungan similarity dibanding atribut demografik, sehingga menghindari stereotip.
+### **Goal 3: Rekomendasi Berbasis Preferensi Aktual, Bukan Stereotip**  
+Menghasilkan rekomendasi yang lebih personal dengan memprioritaskan perilaku pengguna (rating, penontonan) daripada atribut demografik.  
 
-### **Jawaban untuk Masalah 4: Menghindari Over-Specialization**  
-Menambahkan elemen diversifikasi dan eksplorasi dalam hasil rekomendasi agar pengguna juga mendapat saran dari genre baru yang relevan.
+### **Goal 4: Mendorong Eksplorasi Konten Baru**  
+Memastikan rekomendasi tidak hanya terfokus pada genre/film yang sudah dikenal pengguna, tetapi juga memperkenalkan opsi baru yang relevan.  
+
 
 ---
 
@@ -274,37 +275,130 @@ Keterkaitan antara data pekerjaan dan genre film semakin memperkuat narasi ini. 
 
 Kesimpulan: Dataset ini tidak hanya menggambarkan preferensi genre, tetapi juga merefleksikan dinamika gender dan demografik pengguna. Ketidakseimbangan yang terlihat bisa berasal dari bias budaya, bias platform, atau bahkan metode pengumpulan data. Untuk menciptakan ekosistem yang lebih inklusif, perlu ada upaya untuk mempromosikan keberagaman genre dan memastikan representasi yang seimbang bagi semua kelompok pengguna. Analisis lebih lanjut dengan mempertimbangkan variabel seperti usia, lokasi, dan preferensi pribadi akan membantu mengungkap wawasan yang lebih mendalam.
 
-## Box Plot
-![image](https://github.com/user-attachments/assets/8dcd9c9d-5fcc-4817-8d13-de89a7205d7b)
-
-Dapat dilihat pada visualisasi diatas tak sedikit variable memiliki outlier namun pada kasus ini akan kita biarkan karna Outlier dalam data misal usia dan gender dapat menjadi informasi penting seperti penonton berusia 70 tahun di tengah dominasi kelompok usia muda, justru dapat menjadi aset berharga bagi sistem rekomendasi. Kelompok minoritas ini sering kali mewakili segmen nyata dengan preferensi unik—misalnya, pensiunan yang aktif menonton film klasik, drama period, atau dokumenter. Dengan mempertahankan outlier, sistem tidak hanya menjaga diversitas data tetapi juga berpeluang menyajikan rekomendasi yang lebih inklusif dan terpersonalisasi untuk niche audience. Hal ini sejalan dengan prinsip bahwa sistem rekomendasi yang baik harus mampu melayani seluruh spektrum pengguna, termasuk kelompok yang secara statistik jarang muncul. Selain itu, keberadaan outlier dapat membantu mengidentifikasi pola tersembunyi, seperti ketertarikan generasi tua terhadap konten bernostalgia, yang mungkin terlewatkan jika data tersebut dihilangkan. Dengan demikian, mempertahankan outlier—sambil memastikan kualitas data tetap valid—justru akan memperkaya kemampuan sistem dalam memahami keragaman preferensi pengguna.
-
 ## Missing Value
 ![image](https://github.com/user-attachments/assets/af319147-9d99-497b-9413-456e570a1029)
 
-Dapat dilihat diatas bahwa terlihat banyak sekali missing value pada video_release_date dengan persenatse mendekati 100%, untuk kolom numerik yang lain dapat dilihat bahwa tidak ada indikasi adanya missing value. Untuk kolom kategorik biasanya missing value tidak berisi nan sehingga tidak teridentifikasi. Mari kita identifikasi lebih lanjut pada kolom lainnya di data preparation
+Dapat dilihat diatas bahwa terlihat banyak sekali missing value pada video_release_date dengan persenatse 100%, untuk kolom numerik yang lain dapat dilihat bahwa tidak ada indikasi adanya missing value. Untuk kolom kategorik biasanya missing value tidak berisi nan sehingga tidak teridentifikasi. Mari kita identifikasi lebih lanjut.
+
+---
+
+## Movie_title
+
+Sebelumnya dilaporkan 0 missing, tetapi setelah dilakukan analisis mendalam ternyata ada 79 entri dengan nilai unknown yang tidak terdeteksi sebagai NaN.
+
+## Occupation
+
+Sebelumnya dilaporkan 0 missing, tetapi setelah dilakukan analisis mendalam ternyata ada 2241 entri dengan nilai none yang tidak terdeteksi sebagai NaN.
+
+Ini terasa sedikit ganjal karna banyak sekali missing valuenya, mari kita gali lebih mendalam lagi apakah ini benar missing value? atau ada maksud lain? kita gunakan teknik summary statistic dan distribusi untuk menggalinya
+
+**Hasil analisis**
+
+**Tabel Distribusi Pekerjaan (Occupation)**
+
+| **Pekerjaan (Occupation)**  | **Jumlah** |
+|-----------------------------|-----------:|
+| student                     |     21,956 |
+| other                       |     10,662 |
+| educator                    |      9,441 |
+| engineer                    |      8,174 |
+| programmer                  |      7,800 |
+| administrator               |      7,479 |
+| writer                      |      5,535 |
+| librarian                   |      5,273 |
+| technician                  |      3,505 |
+| executive                   |      3,403 |
+| healthcare                  |      2,804 |
+| artist                      |      2,308 |
+| entertainment               |      2,094 |
+| scientist                   |      2,058 |
+| marketing                   |      1,950 |
+| retired                     |      1,609 |
+| lawyer                      |      1,345 |
+| none                        |        900 |
+| salesman                    |        856 |
+| doctor                      |        540 |
+| homemaker                   |        299 |
+
+**Tabel Statistik Usia (Age)**
+
+| **Statistik** | **Nilai** |
+|---------------|----------:|
+| count         |    900.00 |
+| mean          |     25.01 |
+| std           |      8.79 |
+| min           |     11.00 |
+| 25%           |     20.00 |
+| 50% (median)  |     20.00 |
+| 75%           |     35.00 |
+| max           |     55.00 |
 
 
+Kolom "none" dalam distribusi ini kemungkinan besar bukan menunjukkan *missing value*, melainkan individu yang secara eksplisit menyatakan tidak memiliki pekerjaan (misalnya mengisi "none" atau "tidak bekerja" dalam survei). Berikut argumen singkatnya:
+
+1. **Konteks Kategorikal**:  
+   "none" muncul sebagai kategori tersendiri dalam daftar occupation (seperti "student", "retired", dll.), yang mengindikasikan bahwa ini adalah nilai valid yang dipilih responden.
+
+2. **Statistik Terukur**:  
+   Kolom ini memiliki statistik deskriptif (count=900, mean usia=25, dll.), yang tidak mungkin ada jika data benar-benar *missing* (biasanya ditandai dengan NaN atau count=0).
+
+3. **Profil Demografis**:  
+   Usia rata-rata kelompok "none" (25 tahun) dan distribusi usia (min=11, max=55) konsisten dengan kelompok tidak bekerja, seperti pelajar muda, pengangguran, atau orang yang memilih tidak berkarir.
+
+4. **Konsistensi dengan Kategori Lain**:  
+   Kategori seperti "retired" atau "homemaker" juga menggambarkan status non-pekerjaan, sehingga "none" mungkin adalah bagian dari pola yang sama.
+
+**Kesimpulan**: "none" adalah kategori occupation yang sah, merepresentasikan responden yang tidak memiliki pekerjaan formal, bukan data yang hilang.
+
+## Age
+
+Tidak memiliki missing value karna hanya memiliki 2 kolom unik yaitu M dan F
+
+---
 
 # Data Preparation 
+
+## Konversi Tipe Data
+Setelah dilakukan pengecekan tipe data ternyata ada kolom yang tidak cocok yaitu Kolom release_date, kolom ini awalnya berisi tanggal dalam format string. Maka dari itu dengan fungsi pd.to_datetime() akan otomatis melakukan:
+- Mengidentifikasi format tanggal secara otomatis (misalnya: YYYY-MM-DD, DD/MM/YYYY).
+
+- Mengubah string/objek menjadi tipe datetime64[ns], yang memungkinkan operasi berbasis waktu seperti ekstraksi tahun, bulan, atau perhitungan selisih tanggal.
+
+- Jika format tanggal tidak jelas (misalnya "10-11-12"), pandas akan mencoba menebaknya atau memberikan error jika tidak valid.
+
+Kemudian Hasil konversi disimpan kembali ke kolom release_date, menggantikan nilai aslinya.
 
 ## Missing Value
 
 ### Kolom `movies_title`
-Setelah dilakukan inspeksi lebih lanjut, ditemukan bahwa nilai *missing* pada kolom `movies_title` ditulis sebagai `unknown`. Hal ini menyebabkan nilai tersebut tidak terdeteksi saat proses visualisasi. Total terdapat **79 nilai missing** dari **10.000 data**, sehingga dapat dikatakan proporsinya sangat kecil. Oleh karena itu, keputusan terbaik adalah **menghapus baris yang mengandung nilai `unknown` tersebut**.
+Setelah dilakukan inspeksi lebih lanjut, ternyata Missing valuenya hanya sedikit sehingga teknik yang dilakukan pada penanganan missing value pada kolom movie title adalah dengan cara **menghapus semua baris yang mengandung missing value 'move_title == unknown'**
 
 ### Kolom `occupation` (Pekerjaan)
-Ditemukan bahwa nilai *missing* pada kolom ini dituliskan sebagai `none`, dengan total **2.238 entri**. Setelah dianalisis lebih lanjut:
-
-- **Jumlah Signifikan**: 900 entri memiliki nilai `none`, jumlah yang cukup signifikan.
-- **Distribusi Usia**: Usia bervariasi (11–55 tahun) dengan **rata-rata 25 tahun**, menunjukkan ada kemungkinan orang-orang ini memang belum atau tidak bekerja.
-- **Konsistensi Kategori**: `none` muncul bersama kategori lain seperti `student`, `retired`, dan `homemaker`, menunjukkan bahwa `none` memang merupakan kategori valid.
-- **Tidak Ada Indikasi Null**: Nilai ini tidak ditulis sebagai `null`, melainkan sebagai kategori yang jelas.
-
-Maka, **nilai `none` diganti menjadi `unemployment`** untuk memperjelas bahwa ini adalah kategori pekerjaan.
+Dikarenakan setelah dilakukan analisis lebih mendalam ternyata kolom none bukan merupakan missing value melainkan orang yang tidak memiliki pekerjaan maka **teknik yang digunakan dalam kasus kolom occupation adalah mengganti nilai `none` menjadi `unemployment` untuk memperjelas bahwa ini adalah kategori pekerjaan.**
 
 ### Kolom `video_release_date`
-Kolom ini memiliki *missing value* mendekati 100% sehingga dianggap tidak informatif. Karena sudah ada kolom `release_date`, maka **kolom ini dihapus** dari dataset.
+Kolom ini memiliki *missing value* mendekati 100% sehingga dianggap tidak informatif. Karena sudah ada kolom `release_date`, maka **teknik yang digunakan dalam kasus video_release_date adalah menghapus kolom video_release_date dengan kata lain kita tidak gunakan kolom ini**
+
+## Encode
+
+Encode dalam sistem rekomendasi wajib dilakukan karena data yang digunakan sering kali berupa kategori atau teks yang tidak dapat langsung diproses oleh algoritma machine learning. Sebagian besar model rekomendasi, seperti collaborative filtering atau content-based filtering, membutuhkan input berupa numerik untuk menghitung similarity atau melakukan prediksi. Encode, seperti one-hot encoding atau label encoding, mengubah data kategorikal (misalnya genre film atau ID pengguna) menjadi format numerik yang dapat dimengerti oleh model. Tanpa proses ini, sistem tidak akan mampu memproses data secara efektif, sehingga menghasilkan rekomendasi yang tidak akurat atau bahkan gagal berfungsi.
+
+Selain itu, encode juga membantu dalam menangani heterogenitas data dan meningkatkan efisiensi komputasi. Dalam sistem rekomendasi, data sering berasal dari berbagai sumber dengan format berbeda, seperti teks, angka, atau kategori. Encode menyederhanakan data tersebut menjadi representasi seragam yang memudahkan algoritma untuk mempelajari pola dan hubungan antarfitur. Teknik seperti embedding (misalnya word2vec atau matrix factorization) bahkan dapat menangkap makna semantik atau relasi kompleks dalam data, seperti preferensi pengguna atau kemiripan item. Dengan demikian, encode tidak hanya memungkinkan sistem rekomendasi untuk bekerja, tetapi juga meningkatkan kualitas dan relevansi output yang dihasilkan.
+
+### Teknik dan kelebihan teknik ini
+
+Untuk encode ini sebenarnya ada banyak teknik yang bisa diterapkan. Tetapi untuk kasus ini akan digunakan teknik label encoder karena beberapa alasan berikut:
+
+1. **Efisiensi Komputasi**  
+   Label Encoding mengonversi nilai kategorikal (*Male/Female*, *student/engineer*) menjadi angka integer (contoh: `gender: M=0, F=1` atau `occupation: student=0, educator=1`). Ini mengurangi penggunaan memori dibanding One-Hot Encoding, terutama untuk kolom dengan banyak kategori seperti *occupation* (misal: 21 jenis pekerjaan). Sistem rekomendasi sering memproses data besar, sehingga efisiensi sangat krusial.
+
+2. **Kompatibilitas dengan Algoritma**  
+   Banyak algoritma recommendation system (seperti **Matrix Factorization** atau **KNN**) memerlukan input numerik. Label Encoding memenuhi syarat ini tanpa menambah dimensi data secara eksponensial seperti One-Hot Encoding yang bisa menghasilkan *sparse matrix*.
+
+
+**Kesimpulan**
+Label Encoding dipilih karena **sederhana, cepat, dan cukup efektif** untuk fitur seperti *gender* dan *occupation* dalam sistem rekomendasi dasar.
+
 
 ---
 
@@ -324,32 +418,25 @@ Pemilihan fitur berikut digunakan untuk membangun sistem rekomendasi dengan pend
 
 Kombinasi dari semua fitur ini memungkinkan sistem rekomendasi yang **lebih akurat dan personal**, baik berdasarkan perilaku pengguna maupun konten film itu sendiri.
 
+### **Kelebihan Pilihan Fitur Ini**
+1. **Coverage Komprehensif**:
+   - Memuat informasi pengguna (demografi) dan film (metadata)
+   - Genre sebagai fitur penting untuk content-based filtering
+
+2. **Kesesuaian untuk Hybrid Recommendation**:
+   - Kombinasi fitur mendukung pendekatan hybrid (collaborative + content-based)
+
+
 ---
 
 ## Ekstrak Tahun Rilis (`release_year`)
 
-Ekstraksi tahun dari kolom `release_date` menjadi kolom `release_year` dilakukan untuk:
+Ekstraksi tahun dari tanggal rilis film menjadi format tahun tunggal (seperti mengubah **"1997-01-24"** menjadi **1997**) sangat penting dalam pembuatan sistem rekomendasi film karena beberapa alasan mendasar. Pertama, hal ini menyederhanakan data dengan mengurangi dimensi yang tidak perlu—informasi hari dan bulan pada tanggal rilis jarang berdampak signifikan pada preferensi pengguna, sementara tahun rilis mampu mewakili konteks era produksi film yang relevan. Kedua, format numerik tahun lebih mudah diolah oleh model machine learning, baik untuk analisis statistik maupun pembobotan, sehingga meningkatkan efisiensi komputasi. Ketiga, tahun rilis mencerminkan karakteristik zeitgeist (semangat zaman) tertentu; misalnya, film tahun 1990-an cenderung memiliki gaya visual, tema, atau teknik produksi yang khas, yang dapat memengaruhi kesukaan penonton. Keempat, fitur ini memungkinkan sistem mengenali pola temporal, seperti selisih antara tahun rating diberikan dan tahun rilis film—sebuah variabel yang sering berkorelasi dengan bias nostalgia atau penilaian terhadap film "klasik". Terakhir, penyederhanaan ini membantu mengatasi masalah sparse data, khususnya untuk film-film dengan tanggal rilis yang unik tetapi tahun yang sama, sehingga memperkuat generalisasi model. Dengan demikian, ekstraksi tahun bukan hanya langkah praktis, tetapi juga strategis untuk menangkap pola preferensi yang lebih dalam.
 
-- **Analisis Temporal**: Identifikasi preferensi terhadap film klasik atau modern.
-- **Optimasi Model ML**: Format numerik lebih efisien.
-- **Perhitungan Similarity**: Relevan dalam pendekatan content-based filtering.
-- **Visualisasi**: Membantu analisis distribusi film berdasarkan dekade.
-- **Reduksi Redundansi**: Hindari duplikasi karena tahun juga sering tercantum di judul.
-
----
-## Outlier
-Karna sudah disebutkan pada data understanding bahwa outlier akan memberikan informasi yang penting maka kita akan biarkan outlier ini dan tidak akan dilakukan penanaganan lebih lanjut
 
 ## Ekstrak Judul Film (`movie_title`)
 
-Menghapus tahun dari `movie_title` penting untuk:
-
-- **Menghindari Duplikasi**: Tahun sudah ada di `release_year`.
-- **Pemrosesan Teks Lebih Mudah**: Bersih untuk kebutuhan NLP atau pencarian.
-- **Tampilan Lebih Bersih**: Mempermudah pembacaan oleh pengguna.
-- **Konsistensi Struktur Data**: Setiap informasi berada di tempat yang sesuai.
-
-Ini merupakan bagian dari upaya menjaga **kebersihan dan efisiensi data** dalam pipeline sistem rekomendasi.
+Pembersihan dan standardisasi data pada kolom **movie_title** dengan menghapus keterangan tahun, koma, kata "The", serta spasi di awal dan akhir merupakan langkah krusial untuk memastikan konsistensi dalam sistem rekomendasi. Pertama, penghapusan tahun rilis (misal: **"Toy Story (1995)"** menjadi **"Toy Story"**) menghilangkan redundansi karena informasi tahun sudah tersedia di kolom terpisah (**release_year**), sekaligus mencegah duplikasi saat menghitung kemiripan judul. Kedua, penghapusan koma dan kata "The" di awal judul (contoh: **"The Godfather"** menjadi **"Godfather"**) menyeragamkan format untuk memudahkan pencocokan string—tanpa langkah ini, sistem mungkin memperlakukan **"The Godfather"** dan **"Godfather"** sebagai dua film berbeda. Ketiga, pembersihan spasi di awal/akhir judul (**"  Pulp Fiction  "** menjadi **"Pulp Fiction"**) mencegah kesalahan teknis dalam pemrosesan teks, terutama saat menggunakan metode berbasis tokenisasi atau embedding. Proses ini juga memungkinkan *fuzzy matching* yang lebih akurat ketika judul memiliki variasi penulisan kecil. Hasilnya adalah representasi judul yang lebih bersih dan terstandarisasi, yang meningkatkan reliabilitas dalam: (1) penghitungan similarity berbasis teks, (2) pengelompokan film, maupun (3) integrasi dengan data eksternal (seperti API IMDB) yang mungkin menggunakan format berbeda. Dengan demikian, transformasi ini bukan sekadar pembersihan kosmetik, melainkan fondasi untuk analisis konten yang lebih robust.
 
 ---
 
@@ -713,6 +800,32 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
   - **Alasan Penggunaan**:  
     Menghindari saran film yang terlalu umum atau sudah diketahui semua orang.
 
+Untuk menghitung **Novelty** dalam konteks **ground truth** (misalnya, daftar item yang sebenarnya relevan atau disukai oleh pengguna), kita dapat memodifikasi formula sebelumnya dengan mempertimbangkan popularitas item-item dalam ground truth tersebut. Berikut penjelasannya:
+
+---
+
+### **d. Ground Truth**
+
+- **Formula**: 
+```math
+\text{Novelty}_{\text{ground truth}} = -\frac{1}{|\text{Items}|} \sum_{i \in \text{Items}} \log_2(p_i)
+```
+- **Keterangan**:
+  - \( p_i \): Popularitas item ke-\(i\) di data pelatihan (frekuensi kemunculan dinormalisasi, \( \sum p_i = 1 \)).
+  - \( |\text{Items}| \): Jumlah item dalam ground truth (untuk normalisasi nilai).
+  - Tanda negatif (\(-\)) memastikan nilai semakin besar untuk item yang kurang populer.
+
+**Perbedaan dengan Novelty dan Rekomendasi**
+- **Ground Truth**: Mengukur kebaruan preferensi aktual pengguna.
+- **Rekomendasi**: Mengukur kebaruan item yang diusulkan sistem.  
+  *(Jika sistem merekomendasikan Film D dan E, maka nilai novelty rekomendasinya juga tinggi.)*
+
+**Alasan Penggunaan untuk Ground Truth**
+1. **Memahami Preferensi Pengguna**:  
+   Mengetahui apakah pengguna cenderung menyukai item populer atau niche.
+2. **Evaluasi Rekomendasi**:  
+   Membandingkan novelty rekomendasi dengan novelty ground truth untuk menilai apakah sistem sesuai dengan selera "unik" pengguna.
+
 ---
 
 ## **2. Hasil Evaluasi Berdasarkan Metrik**
@@ -754,6 +867,92 @@ DCG@k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
 | **NDCG@10**     | 0.1910   | 0.5225   | 0.6720     | Hybrid paling akurat                   |
 | **Diversity**   | 0.4312   | 0.0000   | 0.0000     | CF paling beragam                      |
 | **Novelty**     | 8.0685   | 11.8166  | 11.8203    | CBF & Hybrid lebih menyarankan item unik |
+
+---
+
+## **Dampak Model Terhadap Business Understanding**
+
+## **1. Cold Start Problem (Problem Statement 1)**
+### **Solusi yang Diberikan**:
+- **Content-Based Filtering (CBF)**:  
+  Menggunakan metadata film (genre, tahun rilis) untuk merekomendasikan film baru/pengguna baru tanpa riwayat rating.  
+- **Hybrid Approach**:  
+  Menggabungkan CBF dan CF dengan bobot tertentu, memastikan rekomendasi tetap relevan meski data terbatas.
+
+### **Dampak terhadap Goal 1**:
+- **Hasil Evaluasi**:  
+  - CBF dan Hybrid unggul dalam **NDCG@10** (0.5225 dan 0.6720), menunjukkan rekomendasi relevan untuk pengguna/film baru.  
+  - Hybrid lebih baik karena memanfaatkan CF jika data pengguna tersedia.  
+- **Keterbatasan**:  
+  - Novelty tinggi (11.82) berpotensi merekomendasikan film terlalu niche, mungkin kurang sesuai untuk preferensi awal pengguna baru.  
+
+**Kesimpulan**:  
+**Goal 1 tercapai**, terutama dengan Hybrid, tetapi perlu penyesuaian bobot untuk menyeimbangkan novelty dan relevansi.
+
+---
+
+## **2. Bias Popularitas (Problem Statement 2)**
+### **Solusi yang Diberikan**:
+- **Collaborative Filtering (CF)**:  
+  Mengurangi bias popularitas dengan mempertimbangkan preferensi pengguna serupa, bukan hanya film populer.  
+- **Hybrid Approach**:  
+  Memperkenalkan film niche melalui komponen CBF.  
+
+### **Dampak terhadap Goal 2**:
+- **Hasil Evaluasi**:  
+  - **Novelty** Hybrid dan CBF sangat tinggi (11.82), menunjukkan rekomendasi tidak hanya film populer.  
+  - **Diversity** CF (0.4312) lebih baik daripada Hybrid/CBF (0.0), tetapi Hybrid tetap unggul dalam akurasi.  
+- **Keterbatasan**:  
+  - Diversity rendah pada Hybrid/CBF berarti rekomendasi masih homogen dalam genre tertentu.  
+
+**Kesimpulan**:  
+**Goal 2 tercapai Tetapi Kurang Optimal**. Hybrid berhasil mengurangi bias popularitas, tetapi perlu peningkatan diversity.
+
+---
+
+## **3. Ketergantungan pada Data Demografik (Problem Statement 3)**
+### **Solusi yang Diberikan**:
+- **Collaborative Filtering**:  
+  Fokus pada perilaku (rating) bukan demografi.  
+- **Hybrid**:  
+  Mengurangi ketergantungan demografi dengan memadukan preferensi aktual (CF) dan konten film (CBF).  
+
+### **Dampak terhadap Goal 3**:
+- **Hasil Evaluasi**:  
+  - Hybrid memiliki **NDCG@10 tertinggi (0.6720)**, menunjukkan rekomendasi lebih personal berbasis preferensi aktual.  
+  - Novelty tinggi juga menunjukkan rekomendasi tidak stereotipikal.  
+- **Keterbatasan**:  
+  - Jika data CF sedikit, sistem masih bergantung pada demografi untuk inisialisasi.  
+
+**Kesimpulan**:  
+**Goal 3 tercapai**. Hybrid berhasil memprioritaskan preferensi aktual dibanding asumsi demografik.
+
+---
+
+## **4. Over-Specialization (Problem Statement 4)**
+### **Solusi yang Diberikan**:
+- **Hybrid Approach**:  
+  Memadukan CBF (untuk eksplorasi konten baru) dan CF (untuk personalisasi).  
+
+### **Dampak terhadap Goal 4**:
+- **Hasil Evaluasi**:  
+  - **Novelty tinggi (11.82)** menunjukkan sistem memperkenalkan film unik.  
+  - Namun, **diversity rendah (0.0)** mengindikasikan rekomendasi masih terkonsentrasi pada genre tertentu.  
+- **Keterbatasan**:  
+  - Sistem mungkin terlalu fokus pada film "mirip tetapi tidak populer" alih-alih benar-benar beragam.  
+
+**Kesimpulan**:  
+**Goal 4 tercapai Tetapi Kurang Optimal**. Hybrid mendorong eksplorasi, tetapi perlu peningkatan diversity.
+
+---
+
+## **Rangkuman Dampak Solusi terhadap Business Goals**
+| **Problem Statement**       | **Solusi**               | **Goal**                          | **Dampak**                                                                 | **Keterangan**                     |
+|-----------------------------|--------------------------|-----------------------------------|----------------------------------------------------------------------------|------------------------------------|
+| Cold Start Problem          | CBF + Hybrid            | Relevansi untuk pengguna/film baru | NDCG@10 tinggi (0.6720), tetapi novelty mungkin terlalu ekstrem.           | **Tercapai**                       |
+| Bias Popularitas            | CF + Hybrid             | Diversitas rekomendasi            | Novelty tinggi (11.82), tetapi diversity rendah (0.0).                     | **Tercapai Tetapi Kurang Optimal**              |
+| Ketergantungan Demografik   | CF + Hybrid             | Rekomendasi berbasis preferensi   | NDCG@10 tinggi menunjukkan personalisasi baik.                             | **Tercapai**                       |
+| Over-Specialization         | Hybrid                  | Eksplorasi konten baru            | Novelty tinggi, tetapi diversity perlu ditingkatkan.                       | **Tercapai Tetapi Kurang Optimal**              |
 
 ---
 
