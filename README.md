@@ -385,6 +385,43 @@ Encode dalam sistem rekomendasi wajib dilakukan karena data yang digunakan serin
 
 Selain itu, encode juga membantu dalam menangani heterogenitas data dan meningkatkan efisiensi komputasi. Dalam sistem rekomendasi, data sering berasal dari berbagai sumber dengan format berbeda, seperti teks, angka, atau kategori. Encode menyederhanakan data tersebut menjadi representasi seragam yang memudahkan algoritma untuk mempelajari pola dan hubungan antarfitur. Teknik seperti embedding (misalnya word2vec atau matrix factorization) bahkan dapat menangkap makna semantik atau relasi kompleks dalam data, seperti preferensi pengguna atau kemiripan item. Dengan demikian, encode tidak hanya memungkinkan sistem rekomendasi untuk bekerja, tetapi juga meningkatkan kualitas dan relevansi output yang dihasilkan.
 
+### **Keterangan Mapping Encode**
+
+### Gender Encoding Mapping
+
+| Gender | Encoded Value |
+| ------ | ------------- |
+| F      | 0             |
+| M      | 1             |
+
+### Occupation Encoding Mapping
+
+| Occupation    | Encoded Value |
+| ------------- | ------------- |
+| administrator | 0             |
+| artist        | 1             |
+| doctor        | 2             |
+| educator      | 3             |
+| engineer      | 4             |
+| entertainment | 5             |
+| executive     | 6             |
+| healthcare    | 7             |
+| homemaker     | 8             |
+| lawyer        | 9             |
+| librarian     | 10            |
+| marketing     | 11            |
+| other         | 12            |
+| programmer    | 13            |
+| retired       | 14            |
+| salesman      | 15            |
+| scientist     | 16            |
+| student       | 17            |
+| technician    | 18            |
+| unemployment  | 19            |
+| writer        | 20            |
+
+
+
 ### Teknik dan kelebihan teknik ini
 
 Untuk encode ini sebenarnya ada banyak teknik yang bisa diterapkan. Tetapi untuk kasus ini akan digunakan teknik label encoder karena beberapa alasan berikut:
@@ -714,8 +751,8 @@ Rekomendasi di atas dihasilkan menggunakan metode *Collaborative Filtering (CF)*
    - Pengguna dewasa (25_1_13 dan 37_1_3) lebih terarah ke film-film klasik berbobot seperti *Godfather* (217.75) dan *Apocalypse Now* (250.79), yang sesuai dengan kecenderungan kelompok usia 25+ yang lebih menghargai kompleksitas cerita.
 
 2. **Pola Occupational Influence**:
-   - Profil 25_1_13 (occupation code 13 kemungkinan profesional) memiliki rekomendasi film dengan tema intelektual seperti *Graduate* dan *Casablanca*, ditunjukkan oleh skor tinggi (240–321). Ini sejalan dengan preferensi kelompok pekerja yang cenderung menyukai film dengan nilai simbolik tinggi.
-   - Sementara 26_1_0 (occupation code 0 mungkin student) lebih tertarik pada film populer seperti *Titanic* dan *Star Wars* dengan skor moderat (110–124), mencerminkan preferensi generasi muda yang lebih terpapar budaya pop.
+   - Profil 25_1_13 (occupation code 13 = programmer) memiliki rekomendasi film dengan tema intelektual seperti *Graduate* dan *Casablanca*, ditunjukkan oleh skor tinggi (240–321). Ini sejalan dengan preferensi kelompok pekerja yang cenderung menyukai film dengan nilai simbolik tinggi.
+   - Sementara 26_1_0 (occupation code 0 = administrator) lebih tertarik pada film populer seperti *Titanic* dan *Star Wars* dengan skor moderat (110–124), mencerminkan preferensi generasi yang lebih terpapar budaya pop.
 
 3. **Skor CF sebagai Indikator Kekuatan Rekomendasi**:
    - Skor tertinggi ada pada *Fugitive* (321.56) untuk pengguna 25_1_13, menunjukkan bahwa film ini sangat direkomendasikan untuk kelompok demografiknya (perempuan usia 25–30 dengan occupation spesifik).
@@ -784,23 +821,23 @@ flowchart TD
     A[Data Preparation] --> B[Content-Based Filtering]
     A --> C[User-Based Collaborative Filtering]
 
-    B --> B1[Ekstraksi Fitur Film: Genre, Tahun Rilis]
+    B --> B1[Ekstraksi Fitur Film:<br>Genre, Tahun Rilis]
     B1 --> B2[Hitung Similarity Konten]
-    B2 --> B3[Skor CBF: cbf_final_score]
+    B2 --> B3[Skor CBF:<br>cbf_final_score]
 
     C --> C1[Buat User-Item Matrix]
     C1 --> C2[Hitung User Similarity]
     C2 --> C3[Prediksi Rating dari User Mirip]
-    C3 --> C4[Skor CF: cf_score_user]
+    C3 --> C4[Skor CF:<br>cf_score_user]
 
     B3 --> D{Gabungkan Skor}
     C4 --> D
-    D --> D1[Parameter Alpha: 0.5]
-    D1 --> D2[Skor Hybrid = Alpha*CBF + (1-Alpha)*CF]
-    D2 --> D3[Urutkan Berdasarkan Skor Hybrid]
+    D --> D1[Parameter Alpha = 0.5]
+    D1 --> D2[Skor Hybrid =<br>Alpha * CBF + (1 - Alpha) * CF]
+    D2 --> D3[Urutkan Berdasarkan<br>Skor Hybrid]
 
     D3 --> E[Evaluasi]
-    E --> E1[Ground Truth: Rating ≥ Percentil 80]
+    E --> E1[Ground Truth:<br>Rating ≥ Percentil 80]
     E --> E2[NDCG@10]
     E --> E3[Diversity]
     E --> E4[Novelty]
@@ -808,8 +845,8 @@ flowchart TD
     E2 --> F[Laporan Akhir]
     E3 --> F
     E4 --> F
-
 ```
+
 
 ### **Alur Hybrid Recommender System (Gabungan CBF + UBF)**
 
