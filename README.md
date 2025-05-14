@@ -839,7 +839,7 @@ flowchart TD
 
     D3 --> E[Evaluasi]
     E --> E1[Ground Truth: Rating di Percentil 80]
-    E --> E2[NDCG@10]
+    E --> E2[NDCG_at_10]
     E --> E3[Diversity]
     E --> E4[Novelty]
 
@@ -847,6 +847,7 @@ flowchart TD
     E2 --> F
     E3 --> F
     E4 --> F
+
 ```
 
 
