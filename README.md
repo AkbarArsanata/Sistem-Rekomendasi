@@ -88,8 +88,8 @@ Memastikan rekomendasi tidak hanya terfokus pada genre/film yang sudah dikenal p
 ### **Solution 1: Content-Based Filtering (CBF)**  
 Menggunakan informasi konten film (seperti genre dan tahun rilis) untuk menghitung kesamaan antar film dengan cosine similarity. Cocok untuk cold start karena tidak bergantung pada interaksi pengguna lain.
 
-### **Solution 2: Collaborative Filtering (CF)**  
-Mengandalkan kesamaan preferensi antar pengguna berdasarkan rating film. Lebih personal namun butuh cukup data interaksi antar pengguna.
+### **Solution 2: User-Based Filtering (UBF)**  
+User-Based Filtering adalah salah satu teknik dalam sistem rekomendasi yang memberikan rekomendasi kepada pengguna berdasarkan kemiripan preferensi atau perilaku dengan pengguna lain.
 
 ### **Solution 3: Hybrid Approach (CBF + CF)**  
 Menggabungkan kedua metode di atas dengan bobot tertentu agar sistem tetap akurat dan fleksibel, terutama dalam mengatasi cold start dan menjaga personalisasi serta diversifikasi.
@@ -453,20 +453,85 @@ Sistem Rekomendasi Berbasis Konten (Content-Based Filtering) adalah salah satu p
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Load Data]
-    B --> C[Preprocessing: Select Features & Optimize Data Types]
-    C --> D[Identify User Profile: Gender + Occupation]
-    D --> E[Get Top-Rated Movies by Similar Users]
-    E --> F{Any Liked Movies?}
-    F -->|Yes| G[Calculate Cosine Similarity]
-    F -->|No| H[Return Empty Recommendations]
-    G --> I[Average Similarity Scores]
-    I --> J[Filter Out Already Liked Movies]
-    J --> K[Sort by Similarity Score]
-    K --> L[Return Recommendations]
-    H --> L
-    L --> M[End]
+    A[Data Preparation] -->|Ekstraksi Fitur Film| B[Identifikasi Preferensi Pengguna]
+    B --> C{Ada Film Disukai?}
+    C -->|Ya| D[Hitung Cosine Similarity]
+    C -->|Tidak| E[Output Kosong]
+    D --> F[Aggregasi Rata-rata Similarity]
+    F --> G[Filter & Sorting Rekomendasi]
+    G --> H[Output Rekomendasi]
 ```
+Berikut adalah **flowchart Mermaid** dan penjelasan detail setiap langkah alur kerja Content-Based Filtering (CBF) dari kode Anda:  
+
+```mermaid
+flowchart TD
+    A[Data Preparation] -->|Ekstraksi Fitur Film| B[Identifikasi Preferensi Pengguna]
+    B --> C{Ada Film Disukai?}
+    C -->|Ya| D[Hitung Cosine Similarity]
+    C -->|Tidak| E[Output Kosong]
+    D --> F[Aggregasi Rata-rata Similarity]
+    F --> G[Filter & Sorting Rekomendasi]
+    G --> H[Output Rekomendasi]
+    H --> I[Ground Truth Calculation]
+    I --> J[Evaluasi: NDCG@10]
+    I --> K[Evaluasi: Diversity]
+    I --> L[Evaluasi: Novelty]
+    J --> M[Hasil Evaluasi]
+    K --> M
+    L --> M
+```
+
+---
+
+### **Alur Utama Content-Based Filtering (CBF)**  
+1. **Persiapan Data**  
+   - Sistem mengumpulkan fitur film (genre, tahun rilis) dan mengubahnya menjadi representasi numerik.  
+   - Data duplikat dihapus untuk efisiensi.  
+
+2. **Identifikasi Preferensi Pengguna**  
+   - Sistem mencari riwayat rating pengguna berdasarkan profil (contoh: gender = *Female*, occupation = *Student*).  
+   - Film dengan rating tertinggi diambil sebagai acuan preferensi (*liked movies*).  
+
+3. **Penanganan Kasus Khusus**  
+   - Jika pengguna tidak memiliki riwayat (*cold start*), sistem tidak bisa memberikan rekomendasi.  
+
+4. **Perhitungan Kemiripan**  
+   - Sistem menghitung kesamaan konten antara film yang disukai dan semua film lain menggunakan *cosine similarity*.  
+
+5. **Peringkat Rekomendasi**  
+   - Hasil similarity dirata-rata untuk setiap film.  
+   - Film yang sudah dikonsumsi pengguna difilter, lalu diurutkan berdasarkan skor tertinggi.  
+
+6. **Output Rekomendasi**  
+   - Daftar film yang belum dikonsumsi, diurutkan dari yang paling relevan.  
+
+---
+
+### **Alur Evaluasi Rekomendasi**  
+1. **Pembentukan Ground Truth**  
+   - Sistem menentukan standar rekomendasi ideal dengan mengambil film yang diberi rating tinggi oleh pengguna (≥ persentil ke-80).  
+
+2. **Pengukuran Akurasi (NDCG@10)**  
+   - Membandingkan rekomendasi sistem dengan *ground truth*.  
+   - Memperhitungkan posisi ranking (rekomendasi di urutan atas diberi bobot lebih).  
+   - Nilai 1 berarti rekomendasi sempurna, 0 berarti tidak akurat sama sekali.  
+
+3. **Pengukuran Keragaman (Diversity)**  
+   - Menghitung seberapa berbeda film-film yang direkomendasikan.  
+   - Semakin rendah kesamaan konten antar film, semakin tinggi skor diversity (mendekati 1).  
+
+4. **Pengukuran Kebaruan (Novelty)**  
+   - Mengevaluasi seberapa jarang/populer film yang direkomendasikan.  
+   - Film yang kurang populer di dataset mendapat skor novelty lebih tinggi.  
+
+5. **Hasil Evaluasi**  
+   - Tiga metrik dilaporkan:  
+     - **NDCG@10**: Akurasi rekomendasi.  
+     - **Diversity**: Keragaman konten.  
+     - **Novelty**: Tingkat ketidakpopuleran.  
+
+---
+
 
 ### Top N Recomendation
 **Informasi Pengguna**
@@ -541,101 +606,211 @@ Rekomendasi ini sangat cocok untuk pengguna dengan ketertarikan pada film-film d
   - Perhitungan similarity bisa menjadi mahal secara komputasi ketika katalog film sangat besar
   - Membutuhkan pembaruan model ketika fitur film berubah
  
-## 2. Collaborative Filtering
+## 2. User-Based Filtering
 
-Collaborative Filtering atau lebih spesifiknya User-Based Collaborative Filtering (UBCF) adalah salah satu teknik recommender system yang merekomendasikan item berdasarkan preferensi pengguna lain yang memiliki kesamaan (neighbors). Namun, data interaksi pengguna-item biasanya sangat sparse (matriks besar dengan banyak nilai kosong), sehingga diperlukan optimasi untuk meningkatkan efisiensi dan akurasi. Sistem ini mencari pengguna (users) yang memiliki pola preferensi serupa dengan target user dan rekomendasi dibuat berdasarkan item yang disukai oleh neighbor users (pengguna mirip) tetapi belum dilihat/dibeli oleh target user.
+Collaborative Filtering atau lebih spesifiknya User-Based Filtering (UBF) adalah salah satu teknik recommender system yang merekomendasikan item berdasarkan preferensi pengguna lain yang memiliki kesamaan (neighbors). Namun, data interaksi pengguna-item biasanya sangat sparse (matriks besar dengan banyak nilai kosong), sehingga diperlukan optimasi untuk meningkatkan efisiensi dan akurasi. Sistem ini mencari pengguna (users) yang memiliki pola preferensi serupa dengan target user dan rekomendasi dibuat berdasarkan item yang disukai oleh neighbor users (pengguna mirip) tetapi belum dilihat/dibeli oleh target user.
 
 ### Cara kerja
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Load Dataset]
-    B --> C[Create Composite User ID]
-    C --> D[Build User-Item Pivot Table]
-    D --> E[Convert to Sparse Matrix]
-    E --> F[Compute User Similarities]
-    F --> G[Calculate Predicted Ratings]
-    G --> H[Normalize Scores]
-    H --> I[Convert to DataFrame]
-    I --> J[Output Recommendations]
-    J --> K[End]
+    A[Data Preparation] --> B[Preprocessing: Buat user_id & user-item matrix]
+    B --> C[Split Data: Train & Test]
+    C --> D[Hitung User Similarity (Cosine)]
+    D --> E{User Ada di Train Set?}
+    E -->|Tidak| F[Lewati Evaluasi User Ini]
+    E -->|Ya| G[Rekomendasikan Film (User-Based CF)]
+    G --> H[Ambil Ground Truth dari Test Set]
+    H --> I[Hitung NDCG]
+    H --> J[Hitung Diversity]
+    H --> K[Hitung Novelty]
+    I --> L[Hasil Evaluasi per User]
+    J --> L
+    K --> L
+    L --> M[Hitung Rata-rata Evaluasi Seluruh User]
+    M --> N[Output: Skor Rata-rata NDCG, Diversity, Novelty]
+
 ```
+---
 
-### Top N Recomendation
-
-**Informasi Pengguna**
-- **User ID**: 49_1_20  
-- **Usia**: 49 tahun  
-- **Jenis Kelamin**: Laki-laki (M)  
-- **Pekerjaan**: Penulis (*writer*)
+Berikut adalah **flowchart Mermaid** untuk sistem **User-Based Collaborative Filtering (UBCF)** beserta **penjelasan setiap langkahnya**:
 
 ---
 
-**Top 10 Rekomendasi Film**
+```mermaid
+flowchart TD
+    A[Data Preparation] --> B[Preprocessing: Buat user_id & user-item matrix]
+    B --> C[Split Data: Train & Test]
+    C --> D[Hitung User Similarity (Cosine)]
+    D --> E{User Ada di Train Set?}
+    E -->|Tidak| F[Lewati Evaluasi User Ini]
+    E -->|Ya| G[Rekomendasikan Film (User-Based CF)]
+    G --> H[Ambil Ground Truth dari Test Set]
+    H --> I[Hitung NDCG]
+    H --> J[Hitung Diversity]
+    H --> K[Hitung Novelty]
+    I --> L[Hasil Evaluasi per User]
+    J --> L
+    K --> L
+    L --> M[Hitung Rata-rata Evaluasi Seluruh User]
+    M --> N[Output: Skor Rata-rata NDCG, Diversity, Novelty]
+```
 
-| No. | Judul Film                  | Skor CF (Collaborative Filtering) |
-|-----|-----------------------------|-----------------------------------|
-| 1   | Star Wars                   | 2.7812                            |
-| 2   | Fargo                       | 2.5721                            |
-| 3   | Titanic                     | 2.4284                            |
-| 4   | Return of the Jedi          | 2.3147                            |
-| 5   | Godfather                   | 2.2757                            |
-| 6   | Raiders of the Lost Ark     | 2.0955                            |
-| 7   | Toy Story                   | 2.0675                            |
-| 8   | Silence of the Lambs        | 2.0011                            |
-| 9   | Jerry Maguire               | 1.9733                            |
-| 10  | Pulp Fiction                | 1.9311                            |
+---
+
+### **Penjelasan Setiap Langkah**
+
+1. **Data Preparation**
+
+* Menyalin data yang telah dipilih (`df_selected`), menghindari manipulasi data asli.
+
+2. **Preprocessing**
+
+* Membuat `user_id` gabungan dari umur, gender, dan pekerjaan.
+* Menyusun **user-item matrix** di mana baris = pengguna, kolom = film, isi = rating.
+
+3. **Split Data**
+
+* Data dibagi menjadi **train (80%)** dan **test (20%)** untuk evaluasi.
+
+4. **Hitung User Similarity**
+
+* Menggunakan **cosine similarity** untuk menghitung kemiripan antar pengguna berdasarkan train data.
+
+5. **Cek Ketersediaan User di Train Set**
+
+* Jika pengguna tidak ditemukan dalam data train, dia **dilewati** dalam proses evaluasi.
+
+6. **Lewati Evaluasi**
+
+* User tidak dievaluasi karena tidak memiliki riwayat dalam train set (cold start problem).
+
+7. **Rekomendasikan Film**
+
+* Sistem mencari pengguna yang paling mirip dan memberikan film berdasarkan rating tertimbang dari mereka.
+
+8. **Ambil Ground Truth**
+
+* **Ground truth** adalah daftar film yang diberi rating oleh user di **test set**.
+* Digunakan sebagai acuan evaluasi.
+
+9. **Hitung NDCG (Normalized Discounted Cumulative Gain)**
+
+* Mengukur akurasi peringkat rekomendasi dengan membandingkan posisi film dalam hasil prediksi terhadap ground truth.
+
+10. **Hitung Diversity**
+
+* Mengukur seberapa **berbeda genre** antar film yang direkomendasikan.
+* Menggunakan cosine similarity antara vektor genre.
+
+11. **Hitung Novelty**
+
+* Mengukur seberapa **tidak populer** film rekomendasi (semakin tidak populer → semakin tinggi novelty-nya).
+
+12. **Hasil Evaluasi per User**
+
+* Menyimpan nilai evaluasi untuk setiap user: NDCG, Diversity, dan Novelty.
+
+13. **Hitung Rata-rata**
+
+* Mengambil rata-rata dari semua skor evaluasi pengguna.
+
+14. **Output**
+
+* Menampilkan skor akhir:
+
+  * **NDCG**: Seberapa akurat rekomendasinya.
+  * **Diversity**: Seberapa bervariasi film yang direkomendasikan.
+  * **Novelty**: Seberapa baru/unik film yang direkomendasikan.
+
+---
+
+Kalau kamu ingin visualisasi ini sebagai gambar atau ingin menambahkan diagram evaluasi tambahan seperti confusion matrix (jika ada), tinggal bilang saja!
+
+
+---
+
+### Top N Recomendation
+
+| User ID   | Rekomendasi 1 (Skor)       | Rekomendasi 2 (Skor)         | Rekomendasi 3 (Skor)        | Rekomendasi 4 (Skor)           | Rekomendasi 5 (Skor)            |
+|-----------|----------------------------|------------------------------|----------------------------|--------------------------------|---------------------------------|
+| 25_1_13   | Fugitive (321.56)          | Casablanca (284.54)          | Apocalypse Now (250.79)    | Graduate (243.52)              | Hunt for Red October (240.53)   |
+| 26_1_0    | Contact (124.92)           | Star Wars (117.44)           | English Patient (117.25)   | Titanic (110.51)               | Fargo (108.39)                  |
+| 20_0_1    | Fargo (181.18)             | Contact (150.13)             | Raiders of the Lost Ark (142.57) | Twelve Monkeys (136.87)   | English Patient (136.39)        |
+| 37_1_3    | Godfather (217.75)         | Silence of the Lambs (214.23) | Pulp Fiction (204.27)      | Empire Strikes Back (194.78)   | English Patient (190.89)        |
+| 20_1_17   | M*A*S*H (237.73)           | Gandhi (233.45)              | Bridge on the River Kwai (217.40) | Gone with the Wind (212.84) | Lone Star (206.99)              |
 
 ---
 
 **Interpretasi**
 
-Rekomendasi di atas dihasilkan menggunakan metode *Collaborative Filtering (CF)*, yang mengandalkan kesamaan pola preferensi antar pengguna. Berikut beberapa insight:
+Rekomendasi di atas dihasilkan menggunakan metode *Collaborative Filtering (CF)* berdasarkan kesamaan preferensi rating antar pengguna dengan profil demografik serupa. Berikut analisis pola yang terlihat:
 
-- **Dominasi Film Klasik & Ikonik**: Film seperti *Star Wars*, *Godfather*, *Pulp Fiction*, dan *Titanic* adalah karya besar yang dikenal memiliki nilai sinematik tinggi. Hal ini cocok dengan profil pengguna yang bekerja sebagai *penulis*, yang mungkin menghargai narasi yang kuat dan pengembangan karakter.
-  
-- **Genre Beragam namun Berkualitas**:
-  - *Star Wars* & *Return of the Jedi*: Sci-fi / petualangan epik
-  - *Fargo* & *Silence of the Lambs*: Thriller psikologis dan misteri
-  - *Toy Story*: Animasi dengan narasi menyentuh dan orisinal
-  - *Jerry Maguire*: Drama romantis dengan pengembangan karakter
+1. **Kecenderungan Genre Berdasarkan Profil Usia & Gender**:
+   - Pengguna muda perempuan (20_0_1 dan 20_1_17) cenderung menyukai film dengan narasi kuat tetapi lebih beragam genre-nya, seperti *Fargo* (dark comedy), *Contact* (sci-fi), dan *Gone with the Wind* (drama sejarah). Skor yang cukup tinggi (180–237) menunjukkan kecocokan yang solid dengan preferensi kelompok usianya.
+   - Pengguna dewasa (25_1_13 dan 37_1_3) lebih terarah ke film-film klasik berbobot seperti *Godfather* (217.75) dan *Apocalypse Now* (250.79), yang sesuai dengan kecenderungan kelompok usia 25+ yang lebih menghargai kompleksitas cerita.
 
-- **Skor CF Tinggi**: Skor tertinggi pada *Star Wars* (2.7812) menunjukkan kecocokan yang sangat kuat dengan preferensi pengguna sejenis, artinya kemungkinan besar pengguna ini akan sangat menyukai film tersebut.
+2. **Pola Occupational Influence**:
+   - Profil 25_1_13 (occupation code 13 kemungkinan profesional) memiliki rekomendasi film dengan tema intelektual seperti *Graduate* dan *Casablanca*, ditunjukkan oleh skor tinggi (240–321). Ini sejalan dengan preferensi kelompok pekerja yang cenderung menyukai film dengan nilai simbolik tinggi.
+   - Sementara 26_1_0 (occupation code 0 mungkin student) lebih tertarik pada film populer seperti *Titanic* dan *Star Wars* dengan skor moderat (110–124), mencerminkan preferensi generasi muda yang lebih terpapar budaya pop.
 
-Rekomendasi ini ideal untuk pengguna yang mencari film dengan kualitas cerita yang tinggi, kompleksitas karakter, dan nilai sinematik mendalam — karakteristik yang sering dicari oleh seorang penulis.
+3. **Skor CF sebagai Indikator Kekuatan Rekomendasi**:
+   - Skor tertinggi ada pada *Fugitive* (321.56) untuk pengguna 25_1_13, menunjukkan bahwa film ini sangat direkomendasikan untuk kelompok demografiknya (perempuan usia 25–30 dengan occupation spesifik).
+   - Perbedaan signifikan antara skor tertinggi dan terendah (contoh: 321 vs 240 pada 25_1_13) mengindikasikan bahwa 2–3 rekomendasi teratas memiliki keyakinan prediksi jauh lebih kuat dibanding sisanya.
+
+4. **Insight Cross-Demografik**:
+   - *English Patient* muncul di 3 dari 5 rekomendasi dengan skor stabil (117–190), menandakan film ini memiliki daya tarik lintas kelompok usia/gender.
+   - Film klasik seperti *Gone with the Wind* dan *Bridge on the River Kwai* hanya muncul untuk pengguna 20_1_17, menunjukkan bahwa minat terhadap film era lama sangat terikat dengan profil occupation tertentu (kode 17 mungkin terkait seni/sejarah).
 
 
-### Kelebihan
-- Demographic-aware:
-  - Mengkombinasikan age, gender, dan occupation untuk identifikasi user
-  - Contoh: "25_1_5" = usia 25, gender male (1), occupation engineer (5)
- 
-- Memorry Efficient:
-  - Penggunaan sparse matrix mengurangi memory usage ~70%
 
-- Cold Start Mitigation:
-  - Dapat memberikan rekomendasi walau untuk user baru selama ada user dengan demografi serupa
+---
 
-### Kekurangan
-- Scalability Limit:
-  - Kompleksitas O(n²) untuk similarity matrix (n = jumlah user)
-  - Contoh: Untuk 100k user → 10^10 operasi
+### **Kelebihan**  
+1. **Personalisasi Tinggi Berdasarkan Demografi**  
+   - Rekomendasi seperti *Godfather* untuk pengguna **37_1_3** (dewasa) dan *Fargo* untuk **20_0_1** (muda) menunjukkan kemampuan sistem dalam menyesuaikan preferensi berdasarkan usia/gender.  
+   - Gabungan fitur demografik (`age_gender_occupation`) membantu memfilter "tetangga terdekat" (*nearest neighbors*) dengan profil lebih homogen.  
 
-- Demographic Bias:
-  - Asumsi bahwa user dengan demografi sama memiliki preferensi serupa
-  - Tidak menangkap preferensi individual
- 
-- Data Sparsity Issue
-  - Data sparsity issue adalah masalah yang muncul ketika matriks data (biasanya dalam sistem rekomendasi) memiliki banyak nilai kosong (0 atau null) dibandingkan dengan nilai yang terisi.
+2. **Menangkap Pola Universal**  
+   - Film seperti *English Patient* muncul di **3/5 rekomendasi** dengan skor stabil, menunjukkan sistem mampu mengidentifikasi konten yang disukai lintas kelompok (*universal appeal*).  
+
+3. **Skor Prediksi Jelas**  
+   - Perbedaan signifikan antar skor (contoh: *Fugitive* 321 vs *Hunt for Red October* 240) memudahkan pemeringkatan prioritas rekomendasi.  
+
+4. **Diversifikasi Genre**  
+   - Terdapat variasi genre: *Silence of the Lambs* (thriller), *Star Wars* (sci-fi), *Gone with the Wind* (drama sejarah). Hal ini mengurangi risiko *over-specialization*.  
+
+---
+
+### **Kekurangan**  
+1. **Bias Terhadap Film Populer**  
+   - Dominasi film klasik (*Casablanca*, *Godfather*) dan blockbuster (*Titanic*) mungkin mengabaikan film niche yang cocok untuk minoritas pengguna.  
+
+2. **Ketergantungan pada Data Historis**  
+   - Pengguna baru tanpa riwayat rating (cold start problem) tidak akan mendapat rekomendasi akurat. Contoh: Jika **20_1_17** adalah user baru, sistem tidak bisa memprediksi *M*A*S*H* sebagai top recommendation.  
+
+3. **Skor Tidak Terstandarisasi**  
+   - Rentang skor bervariasi (contoh: 108–321), menyulitkan interpretasi "ambang batas" kualitas rekomendasi. Apakah skor 110 sudah baik atau tidak?  
+
+4. **Potensi Redundansi**  
+   - *English Patient* muncul berulang untuk berbagai user, yang mungkin mengurangi keberagaman (*diversity*) jika semua rekomendasi diambil dari pool film serupa.  
+
+5. **Lack of Contextual Information**  
+   - Sistem tidak mempertimbangkan *konteks waktu* (misal: film baru vs lama) atau *mood* pengguna (sedang ingin nonton film ringan vs berat).  
+
+---
+
+
+
 
  ## 3. Model Sistem Rekomendasi Hybrid
-  Model ini menggabungkan Content-Based Filtering (CBF) dan Collaborative Filtering (CF) untuk mengatasi kelemahan masing-masing pendekatan:
+  Model ini menggabungkan Content-Based Filtering (CBF) dan User Based Filtering (UBF) untuk mengatasi kelemahan masing-masing pendekatan:
 - **Komponen Utama**:
 - Content-Based Filtering (CBF)
   - Merekomendasikan item berdasarkan kesamaan fitur konten (genre, tahun rilis).
   - Cocok untuk cold start problem (item/user baru).
 
-- Collaborative Filtering (CF)
+- User Based Filtering (UBF)
   - Merekomendasikan item berdasarkan perilaku user lain yang mirip.
   - Efektif jika ada data rating yang cukup.
 
@@ -643,19 +818,90 @@ Rekomendasi ini ideal untuk pengguna yang mencari film dengan kualitas cerita ya
 
 ```mermaid
 flowchart TD
-    A([Start]) --> B[/"Input User Demografi\n(age, gender, occupation)"/]
-    B --> C[("Buat User_ID")]
-    C --> D{"Cek User\ndi Data CF?"}
-    D -->|Ya| E[/"Ambil Skor CF"/]
-    D -->|Tidak| F[/"Skor CF = 0"/]
-    E --> G[/"Ambil Skor CBF"/]
-    F --> G
-    G --> H[/"Gabungkan Skor:\nHybrid = α*CBF + (1-α)*CF"/]
-    H --> I[/"Filter Item yang\nAda di Kedua Model"/]
-    I --> J[/"Urutkan Berdasarkan\nSkor Hybrid"/]
-    J --> K[/"Output Rekomendasi"/]
-    K --> L([End])
+    A[Data Preparation] --> B[Content-Based Filtering]
+    A --> C[User-Based Collaborative Filtering]
+    
+    %% Content-Based Filtering Branch
+    B --> B1[Ekstraksi Fitur Film: Genre, Tahun Rilis]
+    B1 --> B2[Hitung Similarity Konten]
+    B2 --> B3[Skor CBF: cbf_final_score]
+    
+    %% Collaborative Filtering Branch
+    C --> C1[Buat User-Item Matrix]
+    C1 --> C2[Hitung User Similarity]
+    C2 --> C3[Prediksi Rating dari User Mirip]
+    C3 --> C4[Skor CF: cf_score_user]
+    
+    %% Hybridization
+    B3 --> D{Gabungkan Skor}
+    C4 --> D
+    D --> D1[Parameter Alpha: 0.5]
+    D1 --> D2[Skor Hybrid = Alpha*CBF + (1-Alpha)*CF]
+    D2 --> D3[Urutkan Berdasarkan Skor Hybrid]
+    
+    %% Evaluation
+    D3 --> E[Evaluasi]
+    E --> E1[Ground Truth: Rating ≥ Percentil 80]
+    E --> E2[NDCG@10]
+    E --> E3[Diversity]
+    E --> E4[Novelty]
+    
+    %% Output
+    E2 --> F[Laporan Akhir]
+    E3 --> F
+    E4 --> F
 ```
+
+### **Alur Hybrid Recommender System (Gabungan CBF + UBF)**
+
+Berikut penjelasan lengkap alur hybrid recommendation **tanpa kode**, fokus pada alur kerja dan konsep:
+
+---
+
+#### **1. Persiapan Dua Model Terpisah**
+- **Content-Based Filtering (CBF)**  
+  - **Input**: Fitur film (genre, tahun rilis) + riwayat preferensi user.  
+  - **Proses**:  
+    - Hitung kemiripan konten antara film yang disukai user dan kandidat film lainnya.  
+    - Hasil: Daftar film dengan skor berbasis konten (`cbf_final_score`).  
+
+- **User-Based Filtering (UBF)**  
+  - **Input**: Matriks rating user-film.  
+  - **Proses**:  
+    - Cari user dengan preferensi mirip (cosine similarity).  
+    - Prediksi rating film yang belum dikonsumsi user target.  
+    - Hasil: Daftar film dengan skor berbasis kolaborasi (`cf_score_user`).  
+
+---
+
+#### **2. Penggabungan (Hybridization)**  
+- **Parameter Penggabungan (`alpha`)**  
+  - `alpha = 0.5`: Beri bobot sama untuk CBF dan UBF.  
+  - Contoh:  
+    - Jika `alpha = 0.7`, sistem lebih mengandalkan CBF (70%) dibanding UBF (30%).  
+
+- **Langkah Penggabungan**:  
+  1. **Ambil Irisan Film**: Hanya gabungkan film yang ada di kedua model.  
+  2. **Hitung Skor Hybrid**:  
+     ```  
+     skor_hybrid = (alpha * skor_CBF) + ((1 - alpha) * skor_CF)  
+     ```  
+  3. **Urutkan Rekomendasi**: Film dengan skor hybrid tertinggi jadi prioritas.  
+
+---
+
+#### **3. Evaluasi Performa**  
+- **Ground Truth**: Film dengan rating ≥ persentil ke-80 dari riwayat user.  
+- **Metrik**:  
+  1. **NDCG@10**: Akurasi rekomendasi (mempertimbangkan peringkat).  
+     - Nilai 1 = rekomendasi sempurna.  
+  2. **Diversity**: Keragaman genre film yang direkomendasikan.  
+     - Nilai tinggi = rekomendasi tidak monoton.  
+  3. **Novelty**: Kebaruan film (semakin tidak populer, semakin tinggi nilainya).  
+
+---
+
+
 
 ### Top N Recommendation
 **Informasi Pengguna**
@@ -830,17 +1076,9 @@ Untuk menghitung **Novelty** dalam konteks **ground truth** (misalnya, daftar it
 
 ## **2. Hasil Evaluasi Berdasarkan Metrik**
 
-### **a. Collaborative Filtering (CF)**
-- **NDCG@10**: 0.1910  
-  → Rekomendasi kurang akurat (hanya 19.1% mendekati urutan ideal).
-- **Diversity**: 0.4312  
-  → Cukup beragam (tingkat dissimilaritas antar item 43.12%).
-- **Novelty**: 8.0685  
-  → Rekomendasi relatif novel (tidak terlalu umum).
-
 ---
 
-### **b. Content-Based Filtering (CBF)**
+### **a. Content-Based Filtering (CBF)**
 - **NDCG@10**: 0.5225  
   → Lebih akurat dibanding CF (mendekati 52.25% dari urutan ideal).
 - **Diversity**: 0.0000  
@@ -848,6 +1086,17 @@ Untuk menghitung **Novelty** dalam konteks **ground truth** (misalnya, daftar it
 - **Novelty**: 11.8166  
   → Sangat novel, namun bisa terlalu niche untuk sebagian pengguna.
 
+---
+
+### **b. User Based Filtering (UBF)**
+NDCG@10: 0.6223
+→ Rekomendasi cukup akurat (62.23% mendekati urutan ideal).
+
+Diversity: 0.7059
+→ Rekomendasi sangat beragam (tingkat dissimilaritas antar item 70.59%).
+
+Novelty: 7.9372
+→ Rekomendasi masih cukup novel (item yang direkomendasikan tidak terlalu umum).
 ---
 
 ### **c. Hybrid (CBF + CF)**
@@ -860,107 +1109,136 @@ Untuk menghitung **Novelty** dalam konteks **ground truth** (misalnya, daftar it
 
 ---
 
-## **3. Analisis Komparatif**
+ 
 
-| **Metrik**     | **CF**   | **CBF**  | **Hybrid** | **Interpretasi**                      |
-|----------------|----------|----------|------------|----------------------------------------|
-| **NDCG@10**     | 0.1910   | 0.5225   | 0.6720     | Hybrid paling akurat                   |
-| **Diversity**   | 0.4312   | 0.0000   | 0.0000     | CF paling beragam                      |
-| **Novelty**     | 8.0685   | 11.8166  | 11.8203    | CBF & Hybrid lebih menyarankan item unik |
+## **3. Analisis Komparatif** 
 
----
+| **Metrik**    | **UBF** | **CBF** | **Hybrid** | **Interpretasi**                                          |
+| ------------- | ------ | ------- | ---------- | --------------------------------------------------------- |
+| **NDCG\@10**  | 0.6223 | 0.5225  | 0.6720     | Hybrid paling akurat, UBF kini lebih baik dari CBF         |
+| **Diversity** | 0.7059 | 0.0000  | 0.0000     | UBF tetap paling beragam                                   |
+| **Novelty**   | 7.9372 | 11.8166 | 11.8203    | CBF & Hybrid tetap lebih menyarankan item yang lebih unik |
 
+
+ 
+
+--- 
 ## **Dampak Model Terhadap Business Understanding**
 
 ## **1. Cold Start Problem (Problem Statement 1)**
+
 ### **Solusi yang Diberikan**:
-- **Content-Based Filtering (CBF)**:  
-  Menggunakan metadata film (genre, tahun rilis) untuk merekomendasikan film baru/pengguna baru tanpa riwayat rating.  
-- **Hybrid Approach**:  
-  Menggabungkan CBF dan CF dengan bobot tertentu, memastikan rekomendasi tetap relevan meski data terbatas.
+
+* **Content-Based Filtering (CBF)**:
+  Menggunakan metadata film (genre, tahun rilis) untuk merekomendasikan film baru/pengguna baru tanpa riwayat rating.
+* **Hybrid Approach**:
+  Menggabungkan CBF dan UBF dengan bobot tertentu, memastikan rekomendasi tetap relevan meski data terbatas.
 
 ### **Dampak terhadap Goal 1**:
-- **Hasil Evaluasi**:  
-  - CBF dan Hybrid unggul dalam **NDCG@10** (0.5225 dan 0.6720), menunjukkan rekomendasi relevan untuk pengguna/film baru.  
-  - Hybrid lebih baik karena memanfaatkan CF jika data pengguna tersedia.  
-- **Keterbatasan**:  
-  - Novelty tinggi (11.82) berpotensi merekomendasikan film terlalu niche, mungkin kurang sesuai untuk preferensi awal pengguna baru.  
 
-**Kesimpulan**:  
-**Goal 1 tercapai**, terutama dengan Hybrid, tetapi perlu penyesuaian bobot untuk menyeimbangkan novelty dan relevansi.
+* **Hasil Evaluasi**:
+
+  * CBF dan Hybrid unggul dalam **NDCG\@10** (0.5225 dan 0.6720), menunjukkan rekomendasi relevan untuk pengguna/film baru.
+  * UBF kini juga kompetitif (0.6223), menunjukkan peningkatan akurasi meskipun tidak didesain khusus untuk cold start.
+  * Hybrid tetap unggul karena memanfaatkan UBF jika data pengguna tersedia.
+* **Keterbatasan**:
+
+  * Novelty tinggi (11.82 pada Hybrid) masih berpotensi menyarankan film terlalu niche untuk pengguna baru.
+
+**Kesimpulan**:
+**Goal 1 tercapai**, terutama dengan Hybrid. UBF juga mulai menunjukkan kontribusi, tetapi penyeimbangan novelty tetap penting.
 
 ---
 
 ## **2. Bias Popularitas (Problem Statement 2)**
+
 ### **Solusi yang Diberikan**:
-- **Collaborative Filtering (CF)**:  
-  Mengurangi bias popularitas dengan mempertimbangkan preferensi pengguna serupa, bukan hanya film populer.  
-- **Hybrid Approach**:  
-  Memperkenalkan film niche melalui komponen CBF.  
+
+* **User-Based Filtering (UBF)**:
+  Mengurangi bias popularitas dengan mempertimbangkan preferensi pengguna serupa, bukan hanya film populer.
+* **Hybrid Approach**:
+  Memperkenalkan film niche melalui komponen CBF.
 
 ### **Dampak terhadap Goal 2**:
-- **Hasil Evaluasi**:  
-  - **Novelty** Hybrid dan CBF sangat tinggi (11.82), menunjukkan rekomendasi tidak hanya film populer.  
-  - **Diversity** CF (0.4312) lebih baik daripada Hybrid/CBF (0.0), tetapi Hybrid tetap unggul dalam akurasi.  
-- **Keterbatasan**:  
-  - Diversity rendah pada Hybrid/CBF berarti rekomendasi masih homogen dalam genre tertentu.  
 
-**Kesimpulan**:  
-**Goal 2 tercapai Tetapi Kurang Optimal**. Hybrid berhasil mengurangi bias popularitas, tetapi perlu peningkatan diversity.
+* **Hasil Evaluasi**:
+
+  * **Novelty** Hybrid dan CBF sangat tinggi (11.82), menunjukkan rekomendasi tidak hanya film populer.
+  * **Diversity** UBF kini meningkat signifikan (0.7059), jauh melampaui Hybrid/CBF (0.0), menunjukkan variasi genre dan tipe film yang lebih tinggi.
+* **Keterbatasan**:
+
+  * Diversity masih menjadi titik lemah bagi Hybrid/CBF, meskipun novelty tinggi.
+
+**Kesimpulan**:
+**Goal 2 tercapai dengan lebih baik**. UBF sangat membantu dalam meningkatkan keberagaman, dan Hybrid mengurangi bias popularitas meski perlu peningkatan pada diversity.
 
 ---
 
 ## **3. Ketergantungan pada Data Demografik (Problem Statement 3)**
+
 ### **Solusi yang Diberikan**:
-- **Collaborative Filtering**:  
-  Fokus pada perilaku (rating) bukan demografi.  
-- **Hybrid**:  
-  Mengurangi ketergantungan demografi dengan memadukan preferensi aktual (CF) dan konten film (CBF).  
+
+* **User-Based Filtering**:
+  Fokus pada perilaku (rating) bukan demografi.
+* **Hybrid**:
+  Mengurangi ketergantungan demografi dengan memadukan preferensi aktual (UBF) dan konten film (CBF).
 
 ### **Dampak terhadap Goal 3**:
-- **Hasil Evaluasi**:  
-  - Hybrid memiliki **NDCG@10 tertinggi (0.6720)**, menunjukkan rekomendasi lebih personal berbasis preferensi aktual.  
-  - Novelty tinggi juga menunjukkan rekomendasi tidak stereotipikal.  
-- **Keterbatasan**:  
-  - Jika data CF sedikit, sistem masih bergantung pada demografi untuk inisialisasi.  
 
-**Kesimpulan**:  
-**Goal 3 tercapai**. Hybrid berhasil memprioritaskan preferensi aktual dibanding asumsi demografik.
+* **Hasil Evaluasi**:
+
+  * UBF dan Hybrid sama-sama memiliki **NDCG\@10 tinggi** (0.6223 dan 0.6720), menunjukkan personalisasi efektif.
+  * Novelty Hybrid tetap tinggi (11.82), menandakan tidak terjebak pada stereotip demografik.
+* **Keterbatasan**:
+
+  * Pada pengguna baru tanpa rating, sistem masih mengandalkan konten/demografi untuk inisialisasi.
+
+**Kesimpulan**:
+**Goal 3 tercapai**. Hybrid dan UBF kini sama-sama efektif dalam merekomendasikan berdasarkan perilaku aktual.
 
 ---
 
 ## **4. Over-Specialization (Problem Statement 4)**
+
 ### **Solusi yang Diberikan**:
-- **Hybrid Approach**:  
-  Memadukan CBF (untuk eksplorasi konten baru) dan CF (untuk personalisasi).  
+
+* **Hybrid Approach**:
+  Memadukan CBF (untuk eksplorasi konten baru) dan UBF (untuk personalisasi).
 
 ### **Dampak terhadap Goal 4**:
-- **Hasil Evaluasi**:  
-  - **Novelty tinggi (11.82)** menunjukkan sistem memperkenalkan film unik.  
-  - Namun, **diversity rendah (0.0)** mengindikasikan rekomendasi masih terkonsentrasi pada genre tertentu.  
-- **Keterbatasan**:  
-  - Sistem mungkin terlalu fokus pada film "mirip tetapi tidak populer" alih-alih benar-benar beragam.  
 
-**Kesimpulan**:  
-**Goal 4 tercapai Tetapi Kurang Optimal**. Hybrid mendorong eksplorasi, tetapi perlu peningkatan diversity.
+* **Hasil Evaluasi**:
+
+  * **Novelty tinggi (11.82)** menunjukkan sistem memperkenalkan film unik.
+  * **Diversity pada UBF meningkat ke 0.7059**, tetapi Hybrid masih stagnan di 0.0, menandakan rekomendasi cenderung sempit.
+* **Keterbatasan**:
+
+  * Hybrid masih menghasilkan rekomendasi homogen meski itemnya unik, perlu perbaikan pada komponen diversity.
+
+**Kesimpulan**:
+**Goal 4 tercapai Tetapi Kurang Optimal**. UBF membantu mendorong keberagaman, namun Hybrid perlu peningkatan dalam menyebarkan genre atau tipe film yang lebih luas.
 
 ---
 
 ## **Rangkuman Dampak Solusi terhadap Business Goals**
-| **Problem Statement**       | **Solusi**               | **Goal**                          | **Dampak**                                                                 | **Keterangan**                     |
-|-----------------------------|--------------------------|-----------------------------------|----------------------------------------------------------------------------|------------------------------------|
-| Cold Start Problem          | CBF + Hybrid            | Relevansi untuk pengguna/film baru | NDCG@10 tinggi (0.6720), tetapi novelty mungkin terlalu ekstrem.           | **Tercapai**                       |
-| Bias Popularitas            | CF + Hybrid             | Diversitas rekomendasi            | Novelty tinggi (11.82), tetapi diversity rendah (0.0).                     | **Tercapai Tetapi Kurang Optimal**              |
-| Ketergantungan Demografik   | CF + Hybrid             | Rekomendasi berbasis preferensi   | NDCG@10 tinggi menunjukkan personalisasi baik.                             | **Tercapai**                       |
-| Over-Specialization         | Hybrid                  | Eksplorasi konten baru            | Novelty tinggi, tetapi diversity perlu ditingkatkan.                       | **Tercapai Tetapi Kurang Optimal**              |
+
+| **Problem Statement**     | **Solusi**   | **Goal**                           | **Dampak**                                                                                 | **Keterangan**                     |
+| ------------------------- | ------------ | ---------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
+| Cold Start Problem        | CBF + Hybrid | Relevansi untuk pengguna/film baru | NDCG\@10 tinggi (0.6720), UBF juga cukup baik (0.6223), namun novelty agak ekstrem.        | **Tercapai**                       |
+| Bias Popularitas          | UBF + Hybrid | Diversitas rekomendasi             | Novelty tinggi (11.82), UBF memiliki diversity tinggi (0.7059), Hybrid masih rendah (0.0). | **Tercapai dengan Lebih Baik**     |
+| Ketergantungan Demografik | UBF + Hybrid | Rekomendasi berbasis preferensi    | NDCG\@10 tinggi menunjukkan personalisasi kuat tanpa bergantung pada demografi.            | **Tercapai**                       |
+| Over-Specialization       | Hybrid       | Eksplorasi konten baru             | Novelty tinggi, namun diversity Hybrid rendah (0.0), UBF bisa bantu memperluas.            | **Tercapai Tetapi Kurang Optimal** |
 
 ---
 
 ## **Kesimpulan**
-- **Hybrid** unggul dalam akurasi, tetapi perlu perbaikan dalam keberagaman.
-- **CF** lebih baik untuk diversitas namun lemah dalam akurasi.
-- **CBF dan Hybrid** sangat baik dalam novelty, namun risiko over-niche.
-- Kombinasi teknik dan penyesuaian bobot bisa ditelusuri lebih lanjut untuk mengoptimalkan ketiga metrik ini secara seimbang.
+
+* **Hybrid** unggul dalam akurasi (NDCG\@10), tetapi perlu perbaikan dalam **diversitas**.
+* **UBF** kini kompetitif secara akurasi dan sangat baik dalam **diversity**, menjadikannya pelengkap kuat untuk Hybrid.
+* **CBF dan Hybrid** menghasilkan rekomendasi yang **novel**, namun berisiko terlalu niche bagi sebagian pengguna.
+* Kombinasi teknik dengan **penyesuaian bobot antara UBF dan CBF** berpotensi mengoptimalkan **akurasi, diversity, dan novelty** secara seimbang.
+
+---
 
 
 # Reference
