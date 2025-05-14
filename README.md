@@ -639,12 +639,12 @@ Collaborative Filtering atau lebih spesifiknya User-Based Filtering (UBF) adalah
 
 ```mermaid
 flowchart TD
-    A[Data Preparation] --> B[Preprocessing: Buat user_id & user-item matrix]
-    B --> C[Split Data: Train & Test]
-    C --> D[Hitung User Similarity (Cosine)]
-    D --> E{User Ada di Train Set?}
+    A[Data Preparation] --> B[Preprocessing: Buat user_id dan user-item matrix]
+    B --> C[Split Data: Train dan Test]
+    C --> D[Hitung User Similarity Cosine]
+    D --> E{User ada di Train Set?}
     E -- Tidak --> F[Lewati Evaluasi User Ini]
-    E -- Ya --> G[Rekomendasikan Film (User-Based CF)]
+    E -- Ya --> G[Rekomendasikan Film dengan User-Based CF]
     G --> H[Ambil Ground Truth dari Test Set]
     H --> I[Hitung NDCG]
     H --> J[Hitung Diversity]
@@ -652,9 +652,10 @@ flowchart TD
     I --> L[Hasil Evaluasi per User]
     J --> L
     K --> L
-    L --> M[Hitung Rata-rata Evaluasi Seluruh User]
-    M --> N[Output: Skor Rata-rata NDCG, Diversity, Novelty]
+    L --> M[Hitung Rata-rata Evaluasi Semua User]
+    M --> N[Output: Skor Rata-rata NDCG, Diversity, dan Novelty]
 ```
+
 
 ---
 
@@ -821,23 +822,23 @@ flowchart TD
     A[Data Preparation] --> B[Content-Based Filtering]
     A --> C[User-Based Collaborative Filtering]
 
-    B --> B1[Ekstraksi Fitur Film:<br>Genre, Tahun Rilis]
+    B --> B1[Ekstraksi Fitur Film: Genre dan Tahun Rilis]
     B1 --> B2[Hitung Similarity Konten]
-    B2 --> B3[Skor CBF:<br>cbf_final_score]
+    B2 --> B3[Skor CBF: cbf_final_score]
 
     C --> C1[Buat User-Item Matrix]
     C1 --> C2[Hitung User Similarity]
     C2 --> C3[Prediksi Rating dari User Mirip]
-    C3 --> C4[Skor CF:<br>cf_score_user]
+    C3 --> C4[Skor CF: cf_score_user]
 
-    B3 --> D{Gabungkan Skor}
+    B3 --> D[Gabungkan Skor]
     C4 --> D
-    D --> D1[Parameter Alpha = 0.5]
-    D1 --> D2[Skor Hybrid =<br>Alpha * CBF + (1 - Alpha) * CF]
-    D2 --> D3[Urutkan Berdasarkan<br>Skor Hybrid]
+    D --> D1[Gunakan Parameter Alpha 0.5]
+    D1 --> D2[Hitung Skor Hybrid: Alpha x CBF + (1 - Alpha) x CF]
+    D2 --> D3[Urutkan Berdasarkan Skor Hybrid]
 
     D3 --> E[Evaluasi]
-    E --> E1[Ground Truth:<br>Rating ≥ Percentil 80]
+    E --> E1[Ground Truth: Rating pada Percentil 80]
     E --> E2[NDCG@10]
     E --> E3[Diversity]
     E --> E4[Novelty]
