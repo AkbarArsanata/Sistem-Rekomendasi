@@ -824,17 +824,17 @@ flowchart TD
 
     B --> B1[Ekstraksi Fitur Film: Genre dan Tahun Rilis]
     B1 --> B2[Hitung Similarity Konten]
-    B2 --> B3[Skor CBF: cbf_final_score]
+    B2 --> B3[Skor UBF (ubf_final_score)]
 
     C --> C1[Buat User-Item Matrix]
     C1 --> C2[Hitung User Similarity]
     C2 --> C3[Prediksi Rating dari User Mirip]
-    C3 --> C4[Skor CF: cf_score_user]
+    C3 --> C4[Skor UBF (ubf_score_user)]
 
     B3 --> D[Gabungkan Skor]
     C4 --> D
-    D --> D1[Gunakan Parameter Alpha 0.5]
-    D1 --> D2[Hitung Skor Hybrid: Alpha x CBF + (1 - Alpha) x CF]
+    D --> D1[Gunakan Parameter Alpha]
+    D1 --> D2[Hitung Skor Hybrid Berdasarkan Alpha dan UBF/CBF]
     D2 --> D3[Urutkan Berdasarkan Skor Hybrid]
 
     D3 --> E[Evaluasi]
@@ -847,6 +847,8 @@ flowchart TD
     E3 --> F
     E4 --> F
 ```
+
+
 
 
 ### **Alur Hybrid Recommender System (Gabungan CBF + UBF)**
