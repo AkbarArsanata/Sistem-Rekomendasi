@@ -460,18 +460,6 @@ flowchart TD
     D --> F[Aggregasi Rata-rata Similarity]
     F --> G[Filter & Sorting Rekomendasi]
     G --> H[Output Rekomendasi]
-```
-Berikut adalah **flowchart Mermaid** dan penjelasan detail setiap langkah alur kerja Content-Based Filtering (CBF) dari kode Anda:  
-
-```mermaid
-flowchart TD
-    A[Data Preparation] -->|Ekstraksi Fitur Film| B[Identifikasi Preferensi Pengguna]
-    B --> C{Ada Film Disukai?}
-    C -->|Ya| D[Hitung Cosine Similarity]
-    C -->|Tidak| E[Output Kosong]
-    D --> F[Aggregasi Rata-rata Similarity]
-    F --> G[Filter & Sorting Rekomendasi]
-    G --> H[Output Rekomendasi]
     H --> I[Ground Truth Calculation]
     I --> J[Evaluasi: NDCG@10]
     I --> K[Evaluasi: Diversity]
@@ -618,33 +606,8 @@ flowchart TD
     B --> C[Split Data: Train & Test]
     C --> D[Hitung User Similarity (Cosine)]
     D --> E{User Ada di Train Set?}
-    E -->|Tidak| F[Lewati Evaluasi User Ini]
-    E -->|Ya| G[Rekomendasikan Film (User-Based CF)]
-    G --> H[Ambil Ground Truth dari Test Set]
-    H --> I[Hitung NDCG]
-    H --> J[Hitung Diversity]
-    H --> K[Hitung Novelty]
-    I --> L[Hasil Evaluasi per User]
-    J --> L
-    K --> L
-    L --> M[Hitung Rata-rata Evaluasi Seluruh User]
-    M --> N[Output: Skor Rata-rata NDCG, Diversity, Novelty]
-
-```
----
-
-Berikut adalah **flowchart Mermaid** untuk sistem **User-Based Collaborative Filtering (UBCF)** beserta **penjelasan setiap langkahnya**:
-
----
-
-```mermaid
-flowchart TD
-    A[Data Preparation] --> B[Preprocessing: Buat user_id & user-item matrix]
-    B --> C[Split Data: Train & Test]
-    C --> D[Hitung User Similarity (Cosine)]
-    D --> E{User Ada di Train Set?}
-    E -->|Tidak| F[Lewati Evaluasi User Ini]
-    E -->|Ya| G[Rekomendasikan Film (User-Based CF)]
+    E -- Tidak --> F[Lewati Evaluasi User Ini]
+    E -- Ya --> G[Rekomendasikan Film (User-Based CF)]
     G --> H[Ambil Ground Truth dari Test Set]
     H --> I[Hitung NDCG]
     H --> J[Hitung Diversity]
@@ -820,36 +783,32 @@ Rekomendasi di atas dihasilkan menggunakan metode *Collaborative Filtering (CF)*
 flowchart TD
     A[Data Preparation] --> B[Content-Based Filtering]
     A --> C[User-Based Collaborative Filtering]
-    
-    %% Content-Based Filtering Branch
+
     B --> B1[Ekstraksi Fitur Film: Genre, Tahun Rilis]
     B1 --> B2[Hitung Similarity Konten]
     B2 --> B3[Skor CBF: cbf_final_score]
-    
-    %% Collaborative Filtering Branch
+
     C --> C1[Buat User-Item Matrix]
     C1 --> C2[Hitung User Similarity]
     C2 --> C3[Prediksi Rating dari User Mirip]
     C3 --> C4[Skor CF: cf_score_user]
-    
-    %% Hybridization
+
     B3 --> D{Gabungkan Skor}
     C4 --> D
     D --> D1[Parameter Alpha: 0.5]
     D1 --> D2[Skor Hybrid = Alpha*CBF + (1-Alpha)*CF]
     D2 --> D3[Urutkan Berdasarkan Skor Hybrid]
-    
-    %% Evaluation
+
     D3 --> E[Evaluasi]
     E --> E1[Ground Truth: Rating ≥ Percentil 80]
     E --> E2[NDCG@10]
     E --> E3[Diversity]
     E --> E4[Novelty]
-    
-    %% Output
+
     E2 --> F[Laporan Akhir]
     E3 --> F
     E4 --> F
+
 ```
 
 ### **Alur Hybrid Recommender System (Gabungan CBF + UBF)**
