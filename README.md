@@ -843,14 +843,11 @@ flowchart TD
     E --> E3[Diversity]
     E --> E4[Novelty]
 
-    E2 --> F[Laporan Akhir]
+    E1 --> F[Laporan Akhir]
+    E2 --> F
     E3 --> F
     E4 --> F
-
 ```
-
-
-
 
 
 ### **Alur Hybrid Recommender System (Gabungan CBF + UBF)**
