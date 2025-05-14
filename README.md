@@ -91,7 +91,7 @@ Menggunakan informasi konten film (seperti genre dan tahun rilis) untuk menghitu
 ### **Solution 2: User-Based Filtering (UBF)**  
 User-Based Filtering adalah salah satu teknik dalam sistem rekomendasi yang memberikan rekomendasi kepada pengguna berdasarkan kemiripan preferensi atau perilaku dengan pengguna lain.
 
-### **Solution 3: Hybrid Approach (CBF + CF)**  
+### **Solution 3: Hybrid Approach (CBF + UBF)**  
 Menggabungkan kedua metode di atas dengan bobot tertentu agar sistem tetap akurat dan fleksibel, terutama dalam mengatasi cold start dan menjaga personalisasi serta diversifikasi.
 
 
